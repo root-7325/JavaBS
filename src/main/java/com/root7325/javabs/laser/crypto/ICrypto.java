@@ -8,6 +8,6 @@ import io.netty.buffer.ByteBufAllocator;
  * @author root7325 on 11.01.2025
  */
 public interface ICrypto {
-    ByteBuf encrypt(ByteBufAllocator allocator, MessageType messageType, ByteBuf plain, byte[] key);
-    ByteBuf decrypt(ByteBufAllocator allocator, int messageId, ByteBuf encrypted, byte[] key);
+    ByteBuf decrypt(ByteBufAllocator allocator, int messageId, ByteBuf encrypted);
+    ByteBuf encrypt(ByteBufAllocator allocator, MessageType messageType, ByteBuf plain);
 }

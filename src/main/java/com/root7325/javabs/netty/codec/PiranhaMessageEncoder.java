@@ -27,7 +27,7 @@ public class PiranhaMessageEncoder extends MessageToByteEncoder<PiranhaMessage> 
         LaserByteBuf laserByteBuf = new LaserByteBuf(payload);
         piranhaMessage.encode(laserByteBuf);
 
-        ByteBuf encrypted = crypto.encrypt(channelHandlerContext.alloc(), piranhaMessage.getMessageType(), payload, null);
+        ByteBuf encrypted = crypto.encrypt(channelHandlerContext.alloc(), piranhaMessage.getMessageType(), payload);
 
         byteBuf.writeShort(piranhaMessage.getMessageType().getI());
         byteBuf.writeMedium(encrypted.writerIndex());

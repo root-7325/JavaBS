@@ -46,7 +46,7 @@ public class PiranhaMessageDecoder extends ByteToMessageDecoder {
         }
 
         ByteBuf in = readBody(byteBuf, messageHeader);
-        ByteBuf decrypted = crypto.decrypt(channelHandlerContext.alloc(), messageHeader.getType(), in, null);
+        ByteBuf decrypted = crypto.decrypt(channelHandlerContext.alloc(), messageHeader.getType(), in);
 
         processPacket(messageHeader.getType(), decrypted, list);
     }
