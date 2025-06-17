@@ -13,14 +13,14 @@ import lombok.extern.slf4j.Slf4j;
 public class LaserServer {
     private final ServerBootstrap serverBootstrap;
 
-    public void bind(int port) {
-        log.debug("Binding to :{}...", port);
-        ChannelFuture channelFuture = serverBootstrap.bind(port);
+    public void bind(String host, int port) {
+        log.debug("Binding to {}:{}...", host, port);
+        ChannelFuture channelFuture = serverBootstrap.bind(host, port);
         channelFuture.addListener(future -> {
             if (future.isSuccess()) {
-                log.info("Server successfully bound to port {}!", port);
+                log.info("Server successfully bound to {}:{}!", host, port);
             } else {
-                log.error("Failed to bind to port {}.", port, future.cause());
+                log.error("Failed to bind to {}:{}.", host, port, future.cause());
             }
         });
     }
