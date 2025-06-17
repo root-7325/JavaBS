@@ -1,6 +1,6 @@
 package com.root7325.javabs.laser.core;
 
-import com.root7325.javabs.entity.Account;
+import com.root7325.javabs.entity.Player;
 import com.root7325.javabs.laser.crypto.ICrypto;
 import com.root7325.javabs.laser.crypto.PepperCrypto;
 import com.root7325.javabs.laser.protocol.packets.PiranhaMessage;
@@ -26,7 +26,7 @@ public class LaserSession {
     private ICrypto crypto = new PepperCrypto();
 
     @Setter
-    private Account account = new Account();
+    private Player player = new Player();
 
     public void write(PiranhaMessage... messages) {
         for (PiranhaMessage packet : messages) {

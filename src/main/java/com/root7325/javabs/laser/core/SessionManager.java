@@ -29,11 +29,11 @@ public class SessionManager {
     public int getSessionsAmount() { return activeSessions.size(); }
 
     public void addSession(LaserSession session) {
-        if (session == null || session.getAccount() == null) {
-            throw new IllegalArgumentException("Session or account can't be null!");
+        if (session == null || session.getPlayer() == null) {
+            throw new IllegalArgumentException("Session or player can't be null!");
         }
 
-        int id = session.getAccount().getId();
+        int id = session.getPlayer().getId();
         Optional<LaserSession> possibleSession = getSession(id);
 
         if (possibleSession.isPresent()) {
@@ -49,8 +49,8 @@ public class SessionManager {
     }
 
     public void removeSession(LaserSession session) {
-        if (session != null && session.getAccount() != null) {
-            removeSession(session.getAccount().getId());
+        if (session != null && session.getPlayer() != null) {
+            removeSession(session.getPlayer().getId());
         }
     }
 

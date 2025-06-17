@@ -1,39 +1,37 @@
 package com.root7325.javabs.dao;
 
-import com.root7325.javabs.entity.Account;
+import com.root7325.javabs.entity.Player;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-
-import java.util.UUID;
 
 /**
  * @author root7325 on 17.06.2025
  */
 @Slf4j
 @RequiredArgsConstructor
-public class UserDAOImpl implements UserDAO {
+public class PlayerDAOImpl implements PlayerDAO {
     private final SessionFactory sessionFactory;
 
     @Override
-    public Account getAccount(int id) {
+    public Player getPlayer(int id) {
         return null;
     }
 
     @Override
-    public Account getAccount(int id, String token) {
+    public Player getPlayer(int id, String token) {
         try (Session session = sessionFactory.openSession()) {
-            String hql = "FROM Account a WHERE a.id = :id AND a.token = :token";
-            Account account = session.createQuery(hql, Account.class)
+            String hql = "FROM Player a WHERE a.id = :id AND a.token = :token";
+            Player player = session.createQuery(hql, Player.class)
                     .setParameter("id", id)
                     .setParameter("token", token)
                     .uniqueResult();
 
-            if (account != null) {
-                return account;
+            if (player != null) {
+                return player;
             } else {
-                log.warn("Account with id {} and token {} wasn't found!", id, token);
+                log.warn("Player with id {} and token {} wasn't found!", id, token);
             }
         } catch (Exception ex) {
             log.error("Failed to load player.", ex);
@@ -42,15 +40,15 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public Account createAccount() {
+    public Player createPlayer() {
         try (Session session = sessionFactory.openSession()) {
-            Account account = new Account();
-            session.persist(account);
+            Player player = new Player();
+            session.persist(player);
 
-            log.debug("Created new account with id {}", account.getId());
-            return account;
+            log.debug("Created new player with id {}", player.getId());
+            return player;
         } catch (Exception ex) {
-            log.error("Failed to create new account.", ex);
+            log.error("Failed to create new player.", ex);
         }
         return null;
     }

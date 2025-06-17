@@ -1,6 +1,6 @@
 package com.root7325.javabs.laser.protocol.packets.server;
 
-import com.root7325.javabs.entity.Account;
+import com.root7325.javabs.entity.Player;
 import com.root7325.javabs.laser.protocol.packets.MessageType;
 import com.root7325.javabs.laser.protocol.packets.PiranhaMessage;
 import com.root7325.javabs.utils.LaserByteBuf;
@@ -11,7 +11,7 @@ import lombok.AllArgsConstructor;
  */
 @AllArgsConstructor
 public class LoginOkMessage extends PiranhaMessage {
-    private final Account account;
+    private final Player player;
 
     @Override
     public void decode(LaserByteBuf in) {
@@ -21,12 +21,12 @@ public class LoginOkMessage extends PiranhaMessage {
     @Override
     public void encode(LaserByteBuf out) {
         out.writeInt(0);
-        out.writeInt(account.getId());
+        out.writeInt(player.getId());
 
         out.writeInt(0);
-        out.writeInt(account.getId());
+        out.writeInt(player.getId());
 
-        out.writeString(account.getToken());
+        out.writeString(player.getToken());
         out.writeString();
         out.writeString();
 
