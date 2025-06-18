@@ -1,8 +1,6 @@
 package com.root7325.javabs.laser.core;
 
-import com.root7325.javabs.laser.handlers.ClientHelloHandler;
-import com.root7325.javabs.laser.handlers.IHandler;
-import com.root7325.javabs.laser.handlers.LoginHandler;
+import com.root7325.javabs.laser.handlers.*;
 import com.root7325.javabs.laser.protocol.packets.MessageType;
 import com.root7325.javabs.laser.protocol.packets.PiranhaMessage;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +24,9 @@ public class MessageRouter {
     private void registerDefaults() {
         handlers.put(MessageType.ClientHello, new ClientHelloHandler());
         handlers.put(MessageType.Login, new LoginHandler());
+        handlers.put(MessageType.KeepAlive, new KeepAliveHandler());
+        handlers.put(MessageType.CancelMatchmaking, new CancelMatchmakingHandler());
+        handlers.put(MessageType.TeamCreate, new TeamCreateHandler());
     }
 
     public void handle(PiranhaMessage piranhaMessage, LaserSession session) {

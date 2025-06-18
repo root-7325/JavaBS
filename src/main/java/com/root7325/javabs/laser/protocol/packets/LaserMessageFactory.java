@@ -1,7 +1,6 @@
 package com.root7325.javabs.laser.protocol.packets;
 
-import com.root7325.javabs.laser.protocol.packets.client.ClientHelloMessage;
-import com.root7325.javabs.laser.protocol.packets.client.LoginMessage;
+import com.root7325.javabs.laser.protocol.packets.client.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,6 +13,9 @@ public class LaserMessageFactory {
     private static final Map<MessageType, Supplier<PiranhaMessage>> defaultSuppliers = new HashMap<>() {{
         put(MessageType.ClientHello, ClientHelloMessage::new);
         put(MessageType.Login, LoginMessage::new);
+        put(MessageType.KeepAlive, KeepAliveMessage::new);
+        put(MessageType.CancelMatchmaking, CancelMatchmakingMessage::new);
+        put(MessageType.TeamCreate, TeamCreateMessage::new);
     }};
 
     private final Map<MessageType, Supplier<PiranhaMessage>> suppliers;

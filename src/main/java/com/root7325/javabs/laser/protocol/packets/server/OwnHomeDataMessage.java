@@ -122,7 +122,11 @@ public class OwnHomeDataMessage extends PiranhaMessage {
         out.writeInt(-1);
 
         out.writeVInt(8);
-        out.writeVInt(0);
+        out.writeVInt(1);
+        {
+            out.writeDataReference(23, 0);
+            out.writeBoolean(true);
+        }
         out.writeVInt(0);
         out.writeVInt(0);
         out.writeVInt(0);

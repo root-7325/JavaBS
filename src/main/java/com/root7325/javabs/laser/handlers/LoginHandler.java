@@ -6,6 +6,7 @@ import com.root7325.javabs.laser.core.LaserSession;
 import com.root7325.javabs.laser.core.ServiceLocator;
 import com.root7325.javabs.laser.protocol.packets.PiranhaMessage;
 import com.root7325.javabs.laser.protocol.packets.client.LoginMessage;
+import com.root7325.javabs.laser.protocol.packets.server.LoginFailedMessage;
 import com.root7325.javabs.laser.protocol.packets.server.LoginOkMessage;
 import com.root7325.javabs.laser.protocol.packets.server.OwnHomeDataMessage;
 
@@ -27,8 +28,9 @@ public class LoginHandler implements IHandler {
         }
 
         if (player != null) {
-            session.writeAndFlush(new LoginOkMessage(player));
-            session.writeAndFlush(new OwnHomeDataMessage(player));
+            session.writeAndFlush(new LoginOkMessage(player), new OwnHomeDataMessage(player));
+        } else {
+            session.writeAndFlush(new LoginFailedMessage("Account not found."));
         }
     }
 }

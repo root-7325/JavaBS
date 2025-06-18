@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 
 /**
  * @author root7325 on 17.06.2025
@@ -42,8 +43,10 @@ public class PlayerDAOImpl implements PlayerDAO {
     @Override
     public Player createPlayer() {
         try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
             Player player = new Player();
             session.persist(player);
+            transaction.commit();
 
             log.debug("Created new player with id {}", player.getId());
             return player;

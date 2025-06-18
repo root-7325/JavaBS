@@ -14,12 +14,18 @@ public enum MessageType {
     ClientCapabilities(10107),
     KeepAlive(10108),
     AnalyticEvent(10110),
+    MatchmakeRequest(14103),
+    CancelMatchmaking(14106),
+    TeamCreate(14350),
 
     ServerHello(20100),
     LoginFailed(20103),
     LoginOk(20104),
     KeepAliveServer(20108),
-    OwnHomeData(24101);
+    MatchMakingCancelled(20406),
+    OwnHomeData(24101),
+    MatchmakeFailed(24108),
+    TeamError(24129);
 
     private final int i;
 
