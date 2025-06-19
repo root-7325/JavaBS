@@ -1,5 +1,6 @@
 package com.root7325.javabs.laser.core;
 
+import com.root7325.javabs.dao.PlayerDAO;
 import com.root7325.javabs.dao.PlayerDAOImpl;
 import com.root7325.javabs.utils.HibernateUtil;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 public class ServiceLocator {
     private static final ServiceLocator INSTANCE = new ServiceLocator();
-    private final PlayerDAOImpl playerDAO;
+    private final PlayerDAO playerDAO;
 
     private ServiceLocator() {
         this.playerDAO = new PlayerDAOImpl(HibernateUtil.getSessionFactory());

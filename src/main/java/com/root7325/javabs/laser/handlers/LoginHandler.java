@@ -1,5 +1,6 @@
 package com.root7325.javabs.laser.handlers;
 
+import com.root7325.javabs.dao.PlayerDAO;
 import com.root7325.javabs.dao.PlayerDAOImpl;
 import com.root7325.javabs.entity.Player;
 import com.root7325.javabs.laser.core.LaserSession;
@@ -18,7 +19,7 @@ public class LoginHandler implements IHandler {
     public void handle(PiranhaMessage piranhaMessage, LaserSession session) {
         LoginMessage loginMessage = (LoginMessage) piranhaMessage;
 
-        PlayerDAOImpl playerDAO = ServiceLocator.getInstance().getPlayerDAO();
+        PlayerDAO playerDAO = ServiceLocator.getInstance().getPlayerDAO();
         Player player;
 
         if (loginMessage.getId() == 0 && loginMessage.getToken().isEmpty()) {
