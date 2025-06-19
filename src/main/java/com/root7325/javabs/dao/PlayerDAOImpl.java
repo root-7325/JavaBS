@@ -17,7 +17,7 @@ public class PlayerDAOImpl implements PlayerDAO {
 
     @Override
     public Player getPlayer(int id) {
-        return null;
+        throw new UnsupportedOperationException("Not implemented yet");
     }
 
     @Override
