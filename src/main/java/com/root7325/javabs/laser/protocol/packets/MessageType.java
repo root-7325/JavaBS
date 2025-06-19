@@ -16,6 +16,7 @@ public enum MessageType {
     AnalyticEvent(10110),
     MatchmakeRequest(14103),
     CancelMatchmaking(14106),
+    GoHomeFromOfflinePractise(14109),
     TeamCreate(14350),
 
     ServerHello(20100),

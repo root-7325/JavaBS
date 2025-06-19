@@ -27,6 +27,7 @@ public class MessageRouter {
         handlers.put(MessageType.KeepAlive, new KeepAliveHandler());
         handlers.put(MessageType.CancelMatchmaking, new CancelMatchmakingHandler());
         handlers.put(MessageType.TeamCreate, new TeamCreateHandler());
+        handlers.put(MessageType.GoHomeFromOfflinePractise, new GoHomeHandler());
     }
 
     public void handle(PiranhaMessage piranhaMessage, LaserSession session) {
