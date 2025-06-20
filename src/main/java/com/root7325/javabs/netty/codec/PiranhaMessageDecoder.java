@@ -47,7 +47,6 @@ public class PiranhaMessageDecoder extends ByteToMessageDecoder {
 
         ByteBuf in = readBody(byteBuf, messageHeader);
         ByteBuf decrypted = crypto.decrypt(channelHandlerContext.alloc(), messageHeader.getType(), in);
-
         processPacket(messageHeader.getType(), decrypted, list);
     }
 
@@ -68,13 +67,13 @@ public class PiranhaMessageDecoder extends ByteToMessageDecoder {
     }
 
     private ByteBuf readBody(ByteBuf in, MessageHeader messageHeader) {
-        ByteBuf payload = in.readBytes(messageHeader.getLength());
-        return payload;
+        return in.readBytes(messageHeader.getLength());
     }
 
     private void processPacket(int type, ByteBuf in, List<Object> list) {
         MessageType messageType = getPacketType(type);
         if (messageType == null) {
+            in.release();
             return;
         }
 
@@ -88,6 +87,7 @@ public class PiranhaMessageDecoder extends ByteToMessageDecoder {
         } else {
             log.debug("Unknown message {}!", type);
         }
+        in.release();
     }
 
     @Getter
