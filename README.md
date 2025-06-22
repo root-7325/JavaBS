@@ -16,6 +16,7 @@ This project is a kind of **time machine into 2022 for me**, recreating good old
 3. MySQL Database with Hibernate
 4. TweetNaCl cryptography
 5. Lobby at it's early stage (OHD only)
+6. DI with Guice
 
 ## 🚧 Potential Future Features
 1. Player profiles
@@ -33,13 +34,10 @@ This project is a kind of **time machine into 2022 for me**, recreating good old
 
 ## 🚀 Quick Start
 1. Setup MySQL Server
-    - Fill in your credentials template located in: `src/main/resources/hibernate.cfg.template.xml`
+    - Fill in your credentials using template located in: `src/main/resources/hibernate.cfg.template.xml`
 2. Check config
     - Use template located in: `src/main/resources/config.yaml.template`
 3. Build and run the server
-    - Either directly from your IDE
-    - Or via `mvn package` and running with `java -jar target/javabs-1.0X.jar`
-      Don't forget to `mvn compile` after changing properties.
 
 ## 📃 License
 This project is licensed under the [MIT License](LICENSE) - so do whatever you want with it, just don't blame me if something goes sideways.

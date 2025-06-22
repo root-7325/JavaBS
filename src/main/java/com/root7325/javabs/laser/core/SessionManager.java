@@ -13,14 +13,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author root7325 on 17.06.2025
  */
 @Slf4j
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class SessionManager {
-    private static final SessionManager INSTANCE = new SessionManager();
+public class SessionManager implements ISessionManager {
     private final ConcurrentHashMap<Integer, LaserSession> activeSessions = new ConcurrentHashMap<>();
-
-    public static SessionManager getInstance() {
-        return INSTANCE;
-    }
 
     public Collection<LaserSession> getSessions() {
         return Collections.unmodifiableCollection(activeSessions.values());
