@@ -147,11 +147,16 @@ public class OwnHomeDataMessage extends PiranhaMessage {
         out.writeVInt(8);
 
         {
-            out.writeVInt(player.getHeroes().size());
+            out.writeVInt(player.getHeroes().size() + 3);
+
             player.getHeroes().forEach(hero -> {
                 out.writeDataReference(hero.getCard());
                 out.writeBoolean(true);
             });
+
+            player.getResources().getCoins().encode(out);
+            player.getResources().getBrawlBoxTokens().encode(out);
+            player.getResources().getBigBoxTokens().encode(out);
         }
 
         {
@@ -198,6 +203,7 @@ public class OwnHomeDataMessage extends PiranhaMessage {
             });
         }
 
+        out.writeVInt(player.getResources().getDiamonds());
         out.writeVInt(0);
         out.writeVInt(0);
         out.writeVInt(0);
@@ -207,8 +213,7 @@ public class OwnHomeDataMessage extends PiranhaMessage {
         out.writeVInt(0);
         out.writeVInt(0);
         out.writeVInt(0);
-        out.writeVInt(0);
-        out.writeVInt(2);
+        out.writeVInt(player.getSettings().getTutorialStep());
         out.writeVInt(0);
     }
 

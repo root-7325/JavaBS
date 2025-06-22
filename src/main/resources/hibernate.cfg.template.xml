@@ -16,6 +16,10 @@
 
         <property name="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
 
-        <mapping class="com.root7325.nonamebot.entity.User"/>
+        <mapping class="com.root7325.javabs.entity.player.Player"/>
+        <mapping class="com.root7325.javabs.entity.player.PlayerSettings"/>
+        <mapping class="com.root7325.javabs.entity.player.PlayerStats"/>
+        <mapping class="com.root7325.javabs.entity.player.PlayerResources"/>
+        <mapping class="com.root7325.javabs.entity.Hero"/>
     </session-factory>
 </hibernate-configuration>

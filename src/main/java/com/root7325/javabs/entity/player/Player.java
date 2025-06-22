@@ -24,10 +24,13 @@ public class Player {
     private String token;
 
     @Embedded
+    private PlayerStats stats;
+
+    @Embedded
     private PlayerSettings settings;
 
     @Embedded
-    private PlayerStats stats;
+    private PlayerResources resources;
 
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Hero> heroes;
@@ -36,6 +39,7 @@ public class Player {
         setToken(UUID.randomUUID().toString());
         setSettings(new PlayerSettings());
         setStats(new PlayerStats());
+        setResources(new PlayerResources());
 
         this.heroes = new ArrayList<>();
         heroes.add(new Hero(this,0, 0));
