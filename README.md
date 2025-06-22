@@ -17,6 +17,7 @@ This project is a kind of **time machine into 2022 for me**, recreating good old
 4. TweetNaCl cryptography
 5. Lobby at it's early stage (OHD only)
 6. DI with Guice
+7. Assets parsing (WIP)
 
 ## 🚧 Potential Future Features
 1. Player profiles
@@ -24,7 +25,6 @@ This project is a kind of **time machine into 2022 for me**, recreating good old
 3. Teams
 4. Gatcha system
 5. Stubs for some functions (matchmaking, battle log, etc.)
-6. Assets parsing
 
 ## ⚙️ Requirements
 - Java 17 or higher

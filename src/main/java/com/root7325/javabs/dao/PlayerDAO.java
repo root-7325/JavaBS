@@ -1,6 +1,6 @@
 package com.root7325.javabs.dao;
 
-import com.root7325.javabs.entity.Player;
+import com.root7325.javabs.entity.player.Player;
 
 /**
  * @author root7325 on 17.06.2025

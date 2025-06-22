@@ -1,9 +1,8 @@
 package com.root7325.javabs.dao;
 
 import com.google.inject.Inject;
-import com.root7325.javabs.entity.Player;
+import com.root7325.javabs.entity.player.Player;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

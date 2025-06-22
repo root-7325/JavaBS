@@ -1,5 +1,6 @@
-package com.root7325.javabs.entity;
+package com.root7325.javabs.entity.player;
 
+import com.root7325.javabs.entity.Hero;
 import com.root7325.javabs.laser.logic.commons.GlobalId;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -14,7 +15,6 @@ import java.util.UUID;
  */
 @Data
 @Entity
-@Slf4j
 @Table(name="players")
 public class Player {
     @Id
@@ -23,37 +23,21 @@ public class Player {
 
     private String token;
 
-    private String username;
+    @Embedded
+    private PlayerSettings settings;
 
-    private boolean registered;
-
-    @Column(name = "thumbnail_id")
-    private int thumbnailId;
-
-    @Transient
-    private GlobalId thumbnail;
-
-    private int score;
-
-    private int highestScore;
-
-    private int boxTokens;
-    private int bigBoxTokens;
+    @Embedded
+    private PlayerStats stats;
 
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Hero> heroes;
 
     public Player() {
         setToken(UUID.randomUUID().toString());
-        setUsername("JavaBS");
-        setThumbnail(new GlobalId(28, 0));
+        setSettings(new PlayerSettings());
+        setStats(new PlayerStats());
 
         this.heroes = new ArrayList<>();
         heroes.add(new Hero(this,0, 0));
-    }
-
-    @PostLoad
-    void postLoad() {
-        setThumbnail(new GlobalId(28, thumbnailId));
     }
 }
