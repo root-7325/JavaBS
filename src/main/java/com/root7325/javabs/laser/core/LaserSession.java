@@ -1,5 +1,6 @@
 package com.root7325.javabs.laser.core;
 
+import com.google.inject.Inject;
 import com.root7325.javabs.entity.Player;
 import com.root7325.javabs.laser.crypto.ICrypto;
 import com.root7325.javabs.laser.crypto.PepperCrypto;
@@ -7,6 +8,7 @@ import com.root7325.javabs.laser.protocol.packets.PiranhaMessage;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.util.AttributeKey;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -17,13 +19,14 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Getter
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor = @__({@Inject}))
 public class LaserSession {
     public static final AttributeKey<LaserSession> SESSION_ATTRIBUTE_KEY = AttributeKey.newInstance("session");
 
-    private final Channel channel;
+    @Setter
+    private Channel channel;
 
-    private ICrypto crypto = new PepperCrypto();
+    private final ICrypto crypto;
 
     @Setter
     private Player player = new Player();

@@ -1,5 +1,6 @@
 package com.root7325.javabs.laser.crypto;
 
+import com.google.inject.Inject;
 import com.root7325.javabs.config.Config;
 import com.root7325.javabs.config.CryptoConfig;
 import com.root7325.javabs.laser.protocol.packets.MessageType;
@@ -17,15 +18,8 @@ import java.util.HexFormat;
  */
 @Slf4j
 public class PepperCrypto implements ICrypto {
-    private static final byte[] serverKey;
-    private static final byte[] clientSecretKey;
-
-    static {
-        CryptoConfig cryptoConfig = Config.getInstance().getCryptoConfig();
-
-        serverKey = HexFormat.of().parseHex(cryptoConfig.getServerKey());
-        clientSecretKey = HexFormat.of().parseHex(cryptoConfig.getClientSecretKey());
-    }
+    private final byte[] serverKey;
+    private final byte[] clientSecretKey;
 
     private final byte[] clientPublicKey = new byte[32];
     private final byte[] sharedKey = new byte[32];
@@ -35,7 +29,11 @@ public class PepperCrypto implements ICrypto {
 
     public TweetNacl.Box box;
 
-    public PepperCrypto() {
+    @Inject
+    public PepperCrypto(CryptoConfig cryptoConfig) {
+        this.serverKey = HexFormat.of().parseHex(cryptoConfig.getServerKey());
+        this.clientSecretKey = HexFormat.of().parseHex(cryptoConfig.getClientSecretKey());
+
         this.serverNonce = new Nonce();
         this.clientNonce = new Nonce();
 

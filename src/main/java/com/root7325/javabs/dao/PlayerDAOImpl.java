@@ -1,6 +1,8 @@
 package com.root7325.javabs.dao;
 
+import com.google.inject.Inject;
 import com.root7325.javabs.entity.Player;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
@@ -11,7 +13,7 @@ import org.hibernate.Transaction;
  * @author root7325 on 17.06.2025
  */
 @Slf4j
-@RequiredArgsConstructor
+@AllArgsConstructor(onConstructor = @__({@Inject}))
 public class PlayerDAOImpl implements PlayerDAO {
     private final SessionFactory sessionFactory;
 
