@@ -1,6 +1,6 @@
 package com.root7325.javabs.laser.protocol.packets.server;
 
-import com.root7325.javabs.entity.Player;
+import com.root7325.javabs.entity.player.Player;
 import com.root7325.javabs.laser.protocol.packets.MessageType;
 import com.root7325.javabs.laser.protocol.packets.PiranhaMessage;
 import com.root7325.javabs.utils.LaserByteBuf;
@@ -22,15 +22,15 @@ public class OwnHomeDataMessage extends PiranhaMessage {
     public void encode(LaserByteBuf out) {
         out.writeVInt(0);
 
-        out.writeVInt(player.getScore());
-        out.writeVInt(player.getHighestScore());
+        out.writeVInt(player.getStats().getScore());
+        out.writeVInt(player.getStats().getHighestScore());
         out.writeVInt(0);
 
         out.writeVInt(0);
         out.writeVInt(1);
         out.writeVInt(0);
 
-        out.writeDataReference(player.getThumbnail());
+        out.writeDataReference(player.getSettings().getThumbnail());
 
         out.writeVInt(0);
         out.writeVInt(0);
@@ -140,18 +140,23 @@ public class OwnHomeDataMessage extends PiranhaMessage {
         out.writeVLong(0, player.getId());
         out.writeVLong(0, player.getId());
 
-        out.writeString(player.getUsername());
+        out.writeString(player.getSettings().getUsername());
         out.writeBoolean(true);
         out.writeInt(-1);
 
         out.writeVInt(8);
 
         {
-            out.writeVInt(player.getHeroes().size());
+            out.writeVInt(player.getHeroes().size() + 3);
+
             player.getHeroes().forEach(hero -> {
                 out.writeDataReference(hero.getCard());
                 out.writeBoolean(true);
             });
+
+            player.getResources().getCoins().encode(out);
+            player.getResources().getBrawlBoxTokens().encode(out);
+            player.getResources().getBigBoxTokens().encode(out);
         }
 
         {
@@ -198,6 +203,7 @@ public class OwnHomeDataMessage extends PiranhaMessage {
             });
         }
 
+        out.writeVInt(player.getResources().getDiamonds());
         out.writeVInt(0);
         out.writeVInt(0);
         out.writeVInt(0);
@@ -207,8 +213,7 @@ public class OwnHomeDataMessage extends PiranhaMessage {
         out.writeVInt(0);
         out.writeVInt(0);
         out.writeVInt(0);
-        out.writeVInt(0);
-        out.writeVInt(2);
+        out.writeVInt(player.getSettings().getTutorialStep());
         out.writeVInt(0);
     }
 

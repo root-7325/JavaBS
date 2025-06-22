@@ -1,6 +1,6 @@
 package com.root7325.javabs.laser.protocol.packets.server;
 
-import com.root7325.javabs.entity.Player;
+import com.root7325.javabs.entity.player.Player;
 import com.root7325.javabs.laser.protocol.packets.MessageType;
 import com.root7325.javabs.laser.protocol.packets.PiranhaMessage;
 import com.root7325.javabs.utils.LaserByteBuf;
@@ -29,7 +29,6 @@ public class LoginOkMessage extends PiranhaMessage {
         out.writeString(player.getToken());
         out.writeString();
         out.writeString();
-
     }
 
     @Override

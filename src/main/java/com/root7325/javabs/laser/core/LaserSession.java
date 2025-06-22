@@ -1,14 +1,12 @@
 package com.root7325.javabs.laser.core;
 
 import com.google.inject.Inject;
-import com.root7325.javabs.entity.Player;
+import com.root7325.javabs.entity.player.Player;
 import com.root7325.javabs.laser.crypto.ICrypto;
-import com.root7325.javabs.laser.crypto.PepperCrypto;
 import com.root7325.javabs.laser.protocol.packets.PiranhaMessage;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.util.AttributeKey;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;

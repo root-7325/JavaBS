@@ -2,8 +2,7 @@ package com.root7325.javabs.laser.handlers;
 
 import com.google.inject.Inject;
 import com.root7325.javabs.dao.PlayerDAO;
-import com.root7325.javabs.dao.PlayerDAOImpl;
-import com.root7325.javabs.entity.Player;
+import com.root7325.javabs.entity.player.Player;
 import com.root7325.javabs.laser.core.LaserSession;
 import com.root7325.javabs.laser.protocol.packets.PiranhaMessage;
 import com.root7325.javabs.laser.protocol.packets.client.LoginMessage;
