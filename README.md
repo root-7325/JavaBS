@@ -37,6 +37,7 @@ This project is a kind of **time machine into 2022 for me**, recreating good old
     - Fill in your credentials using template located in: `src/main/resources/hibernate.cfg.template.xml`
 2. Check config
     - Use template located in: `src/main/resources/config.yaml.template`
+    - After filling out your config, you can place `config.yaml` next to your .jar file, or keep it inside in resources.
 3. Build and run the server
 
 ## 📃 License
