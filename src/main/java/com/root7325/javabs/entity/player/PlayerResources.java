@@ -11,9 +11,6 @@ import lombok.Data;
 @Data
 @Embeddable
 public class PlayerResources {
-    @Id
-    private int id;
-
     @Column(name = "trophy_road_progress")
     private int trophyRoadProgress = 1;
 

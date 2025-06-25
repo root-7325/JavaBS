@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Slf4j
 public class SessionManager implements ISessionManager {
-    private final ConcurrentHashMap<Integer, LaserSession> activeSessions = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Long, LaserSession> activeSessions = new ConcurrentHashMap<>();
 
     public Collection<LaserSession> getSessions() {
         return Collections.unmodifiableCollection(activeSessions.values());
@@ -27,7 +27,7 @@ public class SessionManager implements ISessionManager {
             throw new IllegalArgumentException("Session or player can't be null!");
         }
 
-        int id = session.getPlayer().getId();
+        long id = session.getPlayer().getId();
         Optional<LaserSession> possibleSession = getSession(id);
 
         if (possibleSession.isPresent()) {
@@ -38,7 +38,7 @@ public class SessionManager implements ISessionManager {
         activeSessions.put(id, session);
     }
 
-    public void removeSession(int id) {
+    public void removeSession(long id) {
         activeSessions.remove(id);
     }
 
@@ -48,7 +48,7 @@ public class SessionManager implements ISessionManager {
         }
     }
 
-    public Optional<LaserSession> getSession(int id) {
+    public Optional<LaserSession> getSession(long id) {
         return Optional.ofNullable(activeSessions.get(id));
     }
 }

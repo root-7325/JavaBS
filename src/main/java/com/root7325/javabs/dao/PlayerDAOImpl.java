@@ -17,12 +17,12 @@ public class PlayerDAOImpl implements PlayerDAO {
     private final SessionFactory sessionFactory;
 
     @Override
-    public Player getPlayer(int id) {
+    public Player getPlayer(long id) {
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
     @Override
-    public Player getPlayer(int id, String token) {
+    public Player getPlayer(long id, String token) {
         try (Session session = sessionFactory.openSession()) {
             String hql = "FROM Player a WHERE a.id = :id AND a.token = :token";
             Player player = session.createQuery(hql, Player.class)

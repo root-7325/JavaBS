@@ -22,9 +22,9 @@ public class OwnHomeDataMessage extends PiranhaMessage {
     public void encode(LaserByteBuf out) {
         out.writeVInt(0);
 
+        out.writeVInt(0);
         out.writeVInt(player.getStats().getScore());
         out.writeVInt(player.getStats().getHighestScore());
-        out.writeVInt(0);
 
         out.writeVInt(0);
         out.writeVInt(1);
@@ -132,13 +132,13 @@ public class OwnHomeDataMessage extends PiranhaMessage {
         out.writeVInt(0);
         out.writeVInt(0);
 
-        out.writeLong(0, player.getId());
+        out.writeLong(player.getId());
         out.writeVInt(0);
         out.writeVInt(0);
 
-        out.writeVLong(0, player.getId());
-        out.writeVLong(0, player.getId());
-        out.writeVLong(0, player.getId());
+        out.writeVLong(player.getId());
+        out.writeVLong(player.getId());
+        out.writeVLong(player.getId());
 
         out.writeString(player.getSettings().getUsername());
         out.writeBoolean(true);

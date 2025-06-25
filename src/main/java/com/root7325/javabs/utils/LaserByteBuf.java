@@ -25,6 +25,10 @@ public class LaserByteBuf {
         return buffer.readInt();
     }
 
+    public long readLong() {
+        return ((long) buffer.readInt() << 32) | (buffer.readInt() & 0xFFFFFFFFL);
+    }
+
     public String readString() {
         int length = readInt();
         if (length <= 0 || length > 900000) {
@@ -113,14 +117,13 @@ public class LaserByteBuf {
             writeVInt(i);
     }
 
-    public void writeLong(int a, int b) {
-        writeInt(a);
-        writeInt(b);
+    public void writeLong(long l) {
+        buffer.writeLong(l);
     }
 
-    public void writeVLong(int a, int b) {
-        writeVInt(a);
-        writeVInt(b);
+    public void writeVLong(long l) {
+        writeVInt((int) (l >> 32));
+        writeVInt((int) (l & 0xFFFFFFFFL));
     }
 
     public void writeDataReference(int classId, int instanceId) {
