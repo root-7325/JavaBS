@@ -7,8 +7,12 @@ import com.google.inject.Singleton;
 import com.root7325.javabs.config.Config;
 import com.root7325.javabs.config.CryptoConfig;
 import com.root7325.javabs.config.ServerConfig;
+import lombok.extern.slf4j.Slf4j;
 import org.yaml.snakeyaml.Yaml;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -31,6 +35,7 @@ public class ConfigModule extends AbstractModule {
     }
 }
 
+@Slf4j
 class ConfigProvider implements Provider<Config> {
     private static final String YAML_FILE = "config.yaml";
 
@@ -38,11 +43,27 @@ class ConfigProvider implements Provider<Config> {
     public Config get() {
         Yaml yaml = new Yaml();
 
+        try {
+            log.debug("Trying to load external config file: {}", YAML_FILE);
+            return loadExternal(yaml);
+        } catch (IOException ex) {
+            log.debug("Falling back to internal config resource: {}", YAML_FILE);
+            return loadInternal(yaml);
+        }
+    }
+
+    private Config loadExternal(Yaml yaml) throws IOException {
+        try (InputStream external = new FileInputStream(YAML_FILE)) {
+            return yaml.loadAs(external, Config.class);
+        }
+    }
+
+    private Config loadInternal(Yaml yaml) {
         try (InputStream inputStream = Config.class.getClassLoader()
                 .getResourceAsStream(YAML_FILE)) {
             return yaml.loadAs(inputStream, Config.class);
-        } catch (Exception ex) {
-            throw new RuntimeException("Failed to load yaml configuration", ex);
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
         }
     }
 }
