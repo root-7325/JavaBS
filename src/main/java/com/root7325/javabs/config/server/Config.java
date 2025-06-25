@@ -1,4 +1,4 @@
-package com.root7325.javabs.config;
+package com.root7325.javabs.config.server;
 
 /**
  * @author root7325 on 17.06.2025

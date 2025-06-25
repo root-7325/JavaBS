@@ -2,12 +2,8 @@ package com.root7325.javabs;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.root7325.javabs.config.Config;
-import com.root7325.javabs.config.ServerConfig;
 import com.root7325.javabs.module.AppModule;
 import com.root7325.javabs.netty.server.LaserServer;
-import com.root7325.javabs.netty.server.LaserServerBootstrap;
-import io.netty.bootstrap.ServerBootstrap;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
