@@ -24,18 +24,19 @@ public class LoginHandler implements IHandler {
     public void handle(PiranhaMessage piranhaMessage, LaserSession session) {
         LoginMessage loginMessage = (LoginMessage) piranhaMessage;
 
-        Player player;
-
         if (loginMessage.getId() == 0 && loginMessage.getToken().isEmpty()) {
-            player = playerDAO.createPlayer();
+            playerDAO.createPlayer()
+                    .thenAccept(player -> handleLogin(session, player));
         } else {
-            player = playerDAO.getPlayer(loginMessage.getId(), loginMessage.getToken());
+            playerDAO.getPlayer(loginMessage.getId(), loginMessage.getToken())
+                    .thenAccept(player -> handleLogin(session, player));
         }
+    }
 
+    private void handleLogin(LaserSession session, Player player) {
         if (player != null) {
             session.setPlayer(player);
 
-            sessionManager.addSession(session);
             session.writeAndFlush(new LoginOkMessage(player), new OwnHomeDataMessage(player));
         } else {
             session.writeAndFlush(new LoginFailedMessage("Account not found."));

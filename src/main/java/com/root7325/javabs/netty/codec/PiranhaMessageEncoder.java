@@ -19,20 +19,24 @@ public class PiranhaMessageEncoder extends MessageToByteEncoder<PiranhaMessage> 
 
     @Override
     protected void encode(ChannelHandlerContext channelHandlerContext, PiranhaMessage piranhaMessage, ByteBuf byteBuf) throws Exception {
-        if (crypto == null) {
-            crypto = LaserSession.get(channelHandlerContext).getCrypto();
+        try {
+            if (crypto == null) {
+                crypto = LaserSession.get(channelHandlerContext).getCrypto();
+            }
+
+            ByteBuf payload = channelHandlerContext.alloc().buffer();
+            LaserByteBuf laserByteBuf = new LaserByteBuf(payload);
+            piranhaMessage.encode(laserByteBuf);
+
+            ByteBuf encrypted = crypto.encrypt(channelHandlerContext.alloc(), piranhaMessage.getMessageType(), payload);
+
+            byteBuf.writeShort(piranhaMessage.getMessageType().getI());
+            byteBuf.writeMedium(encrypted.writerIndex());
+            byteBuf.writeShort(0);
+            byteBuf.writeBytes(encrypted);
+            byteBuf.writeBytes(new byte[7]);
+        } catch (Exception e) {
+            channelHandlerContext.fireExceptionCaught(e);
         }
-
-        ByteBuf payload = channelHandlerContext.alloc().buffer();
-        LaserByteBuf laserByteBuf = new LaserByteBuf(payload);
-        piranhaMessage.encode(laserByteBuf);
-
-        ByteBuf encrypted = crypto.encrypt(channelHandlerContext.alloc(), piranhaMessage.getMessageType(), payload);
-
-        byteBuf.writeShort(piranhaMessage.getMessageType().getI());
-        byteBuf.writeMedium(encrypted.writerIndex());
-        byteBuf.writeShort(0);
-        byteBuf.writeBytes(encrypted);
-        byteBuf.writeBytes(new byte[7]);
     }
 }

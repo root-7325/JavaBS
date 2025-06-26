@@ -32,7 +32,7 @@ public class Player {
     @Embedded
     private PlayerResources resources;
 
-    @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Hero> heroes;
 
     public Player() {

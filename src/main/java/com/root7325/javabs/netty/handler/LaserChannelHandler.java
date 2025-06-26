@@ -46,8 +46,6 @@ public class LaserChannelHandler extends ChannelInboundHandlerAdapter {
             log.debug("Handling PiranhaMessage.");
             router.handle((PiranhaMessage) msg, laserSession);
         }
-
-        laserSession.flush();
     }
 
     @Override

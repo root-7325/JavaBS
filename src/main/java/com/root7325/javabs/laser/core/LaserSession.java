@@ -37,8 +37,10 @@ public class LaserSession {
     }
 
     public void writeAndFlush(PiranhaMessage... messages) {
-        write(messages);
-        flush();
+        channel.eventLoop().execute(() -> {
+            write(messages);
+            flush();
+        });
     }
 
     public void flush() {

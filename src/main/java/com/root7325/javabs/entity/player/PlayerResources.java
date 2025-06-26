@@ -32,6 +32,8 @@ public class PlayerResources {
     @Transient
     private LogicDataSlot bigBoxTokens;
 
+    private int tickets;
+
     private int diamonds = 30;
 
     private int exp;
