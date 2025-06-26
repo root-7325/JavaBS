@@ -17,7 +17,8 @@ This project is a kind of **time machine into 2022 for me**, recreating good old
 4. TweetNaCl cryptography
 5. Lobby at it's early stage (OHD only)
 6. DI with Guice
-7. Assets parsing (WIP)
+7. Asynchronous processing
+8. Flexible Ruleset system
 
 ## 🚧 Potential Future Features
 1. Player profiles
@@ -25,6 +26,7 @@ This project is a kind of **time machine into 2022 for me**, recreating good old
 3. Teams
 4. Gatcha system
 5. Stubs for some functions (matchmaking, battle log, etc.)
+6. Assets parsing
 
 ## ⚙️ Requirements
 - Java 17 or higher
@@ -37,8 +39,11 @@ This project is a kind of **time machine into 2022 for me**, recreating good old
     - Fill in your credentials using template located in: `src/main/resources/hibernate.cfg.template.xml`
 2. Check config
     - Use template located in: `src/main/resources/config.yaml.template`
-    - After filling out your config, you can place `config.yaml` next to your .jar file, or keep it inside in resources.
-3. Build and run the server
+3. Fill out your ruleset
+    - Use template located in: `src/main/resources/ruleset.yaml.template`
+4. Build and run the server
+
+> You can place your `.yaml` config files next to your `.jar` file or keep them inside in resources directory.
 
 ## 📃 License
 This project is licensed under the [MIT License](LICENSE) - so do whatever you want with it, just don't blame me if something goes sideways.

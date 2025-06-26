@@ -1,12 +1,20 @@
+shopSettings:
+  brawlBoxTokenCost: 100
+  brawlBoxShopCost: 10
+  bigBoxShopCost: 30
+  megaBoxShopCost: 80
+  bigBoxTokenCost: 10
+  tokenDoublerCost: 50
+  tokenDoublerAmount: 1000
+  eventTicketsCost: [ 10,30,80 ]
+  eventTicketsValue: [ 6,20,60 ]
+  coinPacksCost: [ 20, 50, 140 ]
+  coinPacksValue: [ 150, 200, 1200 ]
+
 tokensCap: 200
 tokensRechargeAmount: 20
 tokensRechargePeriod: 7200 # 2 hours
-brawlerUpgradeCost: [20, 35, 75, 140, 290, 480, 800, 1250]
-coinPacksCost: [20, 50, 140, 280]
-coinPacksValue: [150, 400, 1200, 2600]
-brawlBoxTokenCost: 100
-bigBoxTokenCost: 10
-tokenDoublerCost: 50
-tokenDoublerAmount: 1000
+boxTokensCap: 999900
+brawlerUpgradeCost: [ 20, 35, 75, 140, 290, 480, 800, 1250 ]
 minimumTrophiesForReset: 550
 defaultTutorialStep: 2

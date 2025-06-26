@@ -1,6 +1,7 @@
 package com.root7325.javabs.laser.handlers;
 
 import com.google.inject.Inject;
+import com.root7325.javabs.config.game.Ruleset;
 import com.root7325.javabs.dao.PlayerDAO;
 import com.root7325.javabs.entity.player.Player;
 import com.root7325.javabs.laser.core.ISessionManager;
@@ -19,6 +20,7 @@ import lombok.AllArgsConstructor;
 public class LoginHandler implements IHandler {
     private final ISessionManager sessionManager;
     private final PlayerDAO playerDAO;
+    private final Ruleset ruleset;
 
     @Override
     public void handle(PiranhaMessage piranhaMessage, LaserSession session) {
@@ -37,7 +39,7 @@ public class LoginHandler implements IHandler {
         if (player != null) {
             session.setPlayer(player);
 
-            session.writeAndFlush(new LoginOkMessage(player), new OwnHomeDataMessage(player));
+            session.writeAndFlush(new LoginOkMessage(player), new OwnHomeDataMessage(player, ruleset));
         } else {
             session.writeAndFlush(new LoginFailedMessage("Account not found."));
         }
