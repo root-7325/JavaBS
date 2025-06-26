@@ -1,4 +1,4 @@
-![Java](https://img.shields.io/badge/Java-17+-orange?logo=openjdk) ![Netty](https://img.shields.io/badge/Netty-4.x-blue) ![Status](https://img.shields.io/badge/Status-Early_Development-red) ![License](https://img.shields.io/badge/License-MIT-green)
+![Java](https://img.shields.io/badge/Java-17+-orange?logo=openjdk) ![Netty](https://img.shields.io/badge/Netty-4.x-blue) ![Status](                                                                                                                         https://img.shields.io/badge/Status-Early_Development-red) ![License](https://img.shields.io/badge/License-MIT-green)
 # JavaBS - a Brawl Stars (v12.187) server emulator ⚡
 **JavaBS** is an **experimental server emulator** (even more experimental than [KyuBancho!](https://gitlab.com/root-7325/kyu-bancho)) written on **Java**.
 
@@ -8,7 +8,7 @@
 This project is in **early development state**. There's **high chance** that stated features **won't be implemented**. The code also **may** contain bugs and **questionable** solutions!
 
 ## 💭 Motivation
-This project is a kind of **time machine into 2022 for me**, recreating good old days when I tried things in **Python**, lol. This is just **a fun experiment** to **relive** those memories. (coded in just **2 hours!**) 
+This project is a kind of **time machine into 2022 for me**, recreating good old days when I tried things in **Python**, lol. This is just **a fun experiment** to **relive** those memories. 
 
 ## ✅ Implemented features
 1. Netty implemented TCP server
