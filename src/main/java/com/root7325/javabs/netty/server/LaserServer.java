@@ -1,10 +1,9 @@
 package com.root7325.javabs.netty.server;
 
 import com.google.inject.Inject;
-import com.root7325.javabs.config.ServerConfig;
+import com.root7325.javabs.config.server.ServerConfig;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**

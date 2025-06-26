@@ -1,8 +1,7 @@
 package com.root7325.javabs.laser.crypto;
 
 import com.google.inject.Inject;
-import com.root7325.javabs.config.Config;
-import com.root7325.javabs.config.CryptoConfig;
+import com.root7325.javabs.config.server.CryptoConfig;
 import com.root7325.javabs.laser.protocol.packets.MessageType;
 import com.root7325.javabs.utils.libraries.*;
 import io.netty.buffer.ByteBuf;
