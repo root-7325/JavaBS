@@ -52,10 +52,16 @@ public class OwnHomeDataMessage extends PiranhaMessage {
 
         out.writeVInt(1);
 
-        // todo: add animation fields before commit < дурак забыл
-        out.writeVInt(0);
-        out.writeVInt(0);
-        out.writeVInt(0);
+        // :)
+        out.writeVInt(player.getResources().getTokensReward());
+        out.writeVInt(player.getResources().getTrophiesReward());
+        out.writeVInt(player.getResources().getStarTokensReward());
+
+        {
+            player.getResources().setTokensReward(0);
+            player.getResources().setStarTokensReward(0);
+            player.getResources().setTrophiesReward(0);
+        }
 
         out.writeVInt(0);
         out.writeVInt(0);

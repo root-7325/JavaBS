@@ -11,6 +11,15 @@ import lombok.Data;
 @Data
 @Embeddable
 public class PlayerResources {
+    @Transient
+    private int tokensReward;
+
+    @Transient
+    private int trophiesReward;
+
+    @Transient
+    private int starTokensReward;
+
     @Column(name = "trophy_road_progress")
     private int trophyRoadProgress = 1;
 
