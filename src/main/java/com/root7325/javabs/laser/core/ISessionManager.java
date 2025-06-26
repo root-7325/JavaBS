@@ -10,7 +10,7 @@ public interface ISessionManager {
     Collection<LaserSession> getSessions();
     int getSessionsAmount();
     void addSession(LaserSession session);
-    void removeSession(int id);
+    void removeSession(long id);
     void removeSession(LaserSession session);
-    Optional<LaserSession> getSession(int id);
+    Optional<LaserSession> getSession(long id);
 }

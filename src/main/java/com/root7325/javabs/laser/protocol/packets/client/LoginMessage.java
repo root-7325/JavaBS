@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LoginMessage extends PiranhaMessage {
-    private int id;
+    private long id;
     private String token;
     private int major, minor, build;
     private String resourceSha;
@@ -19,8 +19,7 @@ public class LoginMessage extends PiranhaMessage {
 
     @Override
     public void decode(LaserByteBuf in) {
-        in.readInt();
-        this.id = in.readInt();
+        this.id = in.readLong();
         this.token = in.readString();
         this.major = in.readInt();
         this.minor = in.readInt();

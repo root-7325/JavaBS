@@ -18,8 +18,8 @@ import java.util.UUID;
 @Table(name="players")
 public class Player {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     private String token;
 
@@ -32,7 +32,7 @@ public class Player {
     @Embedded
     private PlayerResources resources;
 
-    @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Hero> heroes;
 
     public Player() {

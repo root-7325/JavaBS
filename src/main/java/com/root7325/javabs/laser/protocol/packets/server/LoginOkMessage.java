@@ -20,11 +20,8 @@ public class LoginOkMessage extends PiranhaMessage {
 
     @Override
     public void encode(LaserByteBuf out) {
-        out.writeInt(0);
-        out.writeInt(player.getId());
-
-        out.writeInt(0);
-        out.writeInt(player.getId());
+        out.writeLong(player.getId());
+        out.writeLong(player.getId());
 
         out.writeString(player.getToken());
         out.writeString();

@@ -12,9 +12,6 @@ import org.hibernate.type.SqlTypes;
 @Data
 @Embeddable
 public class PlayerSettings {
-    @Id
-    private int id;
-
     @Column(length = 128)
     private String username = "JavaBS";
 

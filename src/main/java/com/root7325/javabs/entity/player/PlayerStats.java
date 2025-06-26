@@ -11,9 +11,6 @@ import lombok.Data;
 @Data
 @Embeddable
 public class PlayerStats {
-    @Id
-    private int id;
-
     public int score = 0;
 
     @Column(name = "highest_score")

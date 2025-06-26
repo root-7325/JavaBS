@@ -3,6 +3,7 @@ package com.root7325.javabs.laser.handlers;
 import com.google.inject.Inject;
 import com.root7325.javabs.dao.PlayerDAO;
 import com.root7325.javabs.entity.player.Player;
+import com.root7325.javabs.laser.core.ISessionManager;
 import com.root7325.javabs.laser.core.LaserSession;
 import com.root7325.javabs.laser.protocol.packets.PiranhaMessage;
 import com.root7325.javabs.laser.protocol.packets.client.LoginMessage;
@@ -16,21 +17,26 @@ import lombok.AllArgsConstructor;
  */
 @AllArgsConstructor(onConstructor = @__({@Inject}))
 public class LoginHandler implements IHandler {
+    private final ISessionManager sessionManager;
     private final PlayerDAO playerDAO;
 
     @Override
     public void handle(PiranhaMessage piranhaMessage, LaserSession session) {
         LoginMessage loginMessage = (LoginMessage) piranhaMessage;
 
-        Player player;
-
         if (loginMessage.getId() == 0 && loginMessage.getToken().isEmpty()) {
-            player = playerDAO.createPlayer();
+            playerDAO.createPlayer()
+                    .thenAccept(player -> handleLogin(session, player));
         } else {
-            player = playerDAO.getPlayer(loginMessage.getId(), loginMessage.getToken());
+            playerDAO.getPlayer(loginMessage.getId(), loginMessage.getToken())
+                    .thenAccept(player -> handleLogin(session, player));
         }
+    }
 
+    private void handleLogin(LaserSession session, Player player) {
         if (player != null) {
+            session.setPlayer(player);
+
             session.writeAndFlush(new LoginOkMessage(player), new OwnHomeDataMessage(player));
         } else {
             session.writeAndFlush(new LoginFailedMessage("Account not found."));
