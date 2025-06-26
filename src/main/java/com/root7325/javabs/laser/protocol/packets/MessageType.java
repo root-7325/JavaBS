@@ -16,6 +16,8 @@ public enum MessageType {
     AnalyticEvent(10110),
     MatchmakeRequest(14103),
     CancelMatchmaking(14106),
+    GoHomeFromOfflinePractise(14109),
+    GetPlayerProfile(14113),
     TeamCreate(14350),
 
     ServerHello(20100),
@@ -25,6 +27,7 @@ public enum MessageType {
     MatchMakingCancelled(20406),
     OwnHomeData(24101),
     MatchmakeFailed(24108),
+    PlayerProfile(24113),
     TeamError(24129);
 
     private final int i;

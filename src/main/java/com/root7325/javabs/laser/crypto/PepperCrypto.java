@@ -1,7 +1,7 @@
 package com.root7325.javabs.laser.crypto;
 
-import com.root7325.javabs.config.Config;
-import com.root7325.javabs.config.CryptoConfig;
+import com.google.inject.Inject;
+import com.root7325.javabs.config.server.CryptoConfig;
 import com.root7325.javabs.laser.protocol.packets.MessageType;
 import com.root7325.javabs.utils.libraries.*;
 import io.netty.buffer.ByteBuf;
@@ -17,15 +17,8 @@ import java.util.HexFormat;
  */
 @Slf4j
 public class PepperCrypto implements ICrypto {
-    private static final byte[] serverKey;
-    private static final byte[] clientSecretKey;
-
-    static {
-        CryptoConfig cryptoConfig = Config.getInstance().getCryptoConfig();
-
-        serverKey = HexFormat.of().parseHex(cryptoConfig.getServerKey());
-        clientSecretKey = HexFormat.of().parseHex(cryptoConfig.getClientSecretKey());
-    }
+    private final byte[] serverKey;
+    private final byte[] clientSecretKey;
 
     private final byte[] clientPublicKey = new byte[32];
     private final byte[] sharedKey = new byte[32];
@@ -35,7 +28,11 @@ public class PepperCrypto implements ICrypto {
 
     public TweetNacl.Box box;
 
-    public PepperCrypto() {
+    @Inject
+    public PepperCrypto(CryptoConfig cryptoConfig) {
+        this.serverKey = HexFormat.of().parseHex(cryptoConfig.getServerKey());
+        this.clientSecretKey = HexFormat.of().parseHex(cryptoConfig.getClientSecretKey());
+
         this.serverNonce = new Nonce();
         this.clientNonce = new Nonce();
 
@@ -45,64 +42,72 @@ public class PepperCrypto implements ICrypto {
 
     @Override
     public ByteBuf decrypt(ByteBufAllocator allocator, int messageId, ByteBuf encrypted) {
-        switch (messageId) {
-            case 10100 -> {
-                return encrypted.retain();
+        try {
+            switch (messageId) {
+                case 10100 -> {
+                    return encrypted.retainedSlice();
+                }
+                case 10101 -> {
+                    byte[] payload = ByteBufUtil.getBytes(encrypted);
+                    payload = Arrays.copyOfRange(payload, 32, payload.length);
+
+                    Nonce nonce = new Nonce(clientPublicKey, serverKey);
+
+                    byte[] decrypted = new TweetNacl.Box(serverKey, clientSecretKey)
+                            .open(payload, nonce.bytes());
+
+                    clientNonce = new Nonce(Arrays.copyOfRange(decrypted, 24, 48));
+
+                    decrypted = Arrays.copyOfRange(decrypted, 48, decrypted.length);
+                    return toBuf(allocator, decrypted);
+                }
+                default -> {
+                    clientNonce.increment();
+                    byte[] payload = ByteBufUtil.getBytes(encrypted);
+
+                    byte[] decrypted = box.open_after(payload, clientNonce.bytes());
+                    return toBuf(allocator, decrypted);
+                }
             }
-            case 10101 -> {
-                byte[] payload = ByteBufUtil.getBytes(encrypted);
-                payload = Arrays.copyOfRange(payload, 32, payload.length);
-
-                Nonce nonce = new Nonce(clientPublicKey, serverKey);
-
-                byte[] decrypted = new TweetNacl.Box(serverKey, clientSecretKey)
-                        .open(payload, nonce.bytes());
-
-                clientNonce = new Nonce(Arrays.copyOfRange(decrypted, 24, 48));
-
-                decrypted = Arrays.copyOfRange(decrypted, 48, decrypted.length);
-                return toBuf(allocator, decrypted);
-            }
-            default -> {
-                clientNonce.increment();
-                byte[] payload = ByteBufUtil.getBytes(encrypted);
-
-                byte[] decrypted = box.open_after(payload, clientNonce.bytes());
-                return toBuf(allocator, decrypted);
-            }
+        } finally {
+            encrypted.release();
         }
     }
 
     @Override
     public ByteBuf encrypt(ByteBufAllocator allocator, MessageType messageType, ByteBuf plain) {
-        switch (messageType) {
-            case ServerHello -> {
-                return plain;
-            }
-            case LoginOk -> {
-                byte[] payload = ByteBufUtil.getBytes(plain);
-                Nonce nonce = new Nonce(clientNonce.bytes(), clientPublicKey, serverKey);
-
-                byte[] midPayload = concat(serverNonce.bytes(), sharedKey);
-                payload = concat(midPayload, payload);
-                byte[] encrypted = new TweetNacl.Box(serverKey, clientSecretKey).after(payload, nonce.bytes());
-
-                this.box = new TweetNacl.Box(serverKey, clientPublicKey);
-                this.box.sharedKey = sharedKey;
-                return toBuf(allocator, encrypted);
-            }
-            default -> {
-                if (messageType == MessageType.LoginFailed && box == null) {
-                    return plain;
+        try {
+            switch (messageType) {
+                case ServerHello -> {
+                    return plain.retainedSlice();
                 }
+                case LoginOk -> {
+                    byte[] payload = ByteBufUtil.getBytes(plain);
+                    Nonce nonce = new Nonce(clientNonce.bytes(), clientPublicKey, serverKey);
 
-                serverNonce.increment();
-                byte[] payload = ByteBufUtil.getBytes(plain);
+                    byte[] midPayload = concat(serverNonce.bytes(), sharedKey);
+                    payload = concat(midPayload, payload);
+                    byte[] encrypted = new TweetNacl.Box(serverKey, clientSecretKey).after(payload, nonce.bytes());
 
-                byte[] encrypted = box.after(payload, serverNonce.bytes());
+                    this.box = new TweetNacl.Box(serverKey, clientPublicKey);
+                    this.box.sharedKey = sharedKey;
+                    return toBuf(allocator, encrypted);
+                }
+                default -> {
+                    if (messageType == MessageType.LoginFailed && box == null) {
+                        return plain.retainedSlice();
+                    }
 
-                return toBuf(allocator, encrypted);
+                    serverNonce.increment();
+                    byte[] payload = ByteBufUtil.getBytes(plain);
+
+                    byte[] encrypted = box.after(payload, serverNonce.bytes());
+
+                    return toBuf(allocator, encrypted);
+                }
             }
+        } finally {
+            plain.release();
         }
     }
 

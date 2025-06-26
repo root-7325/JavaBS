@@ -10,11 +10,11 @@ import io.netty.buffer.ByteBufAllocator;
 public class NopCrypto implements ICrypto {
     @Override
     public ByteBuf decrypt(ByteBufAllocator allocator, int messageId, ByteBuf encrypted) {
-        return encrypted;
+        return encrypted.retain();
     }
 
     @Override
     public ByteBuf encrypt(ByteBufAllocator allocator, MessageType messageType, ByteBuf plain) {
-        return plain;
+        return plain.retain();
     }
 }

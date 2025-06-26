@@ -38,4 +38,7 @@ build/
 application.log
 dependency-reduced-pom.xml
 src/main/resources/config.yaml
+src/main/resources/ruleset.yaml
 src/main/resources/hibernate.cfg.xml
+config.yaml
+ruleset.yaml

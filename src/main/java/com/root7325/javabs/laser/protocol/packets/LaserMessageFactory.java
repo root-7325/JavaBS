@@ -16,6 +16,8 @@ public class LaserMessageFactory {
         put(MessageType.KeepAlive, KeepAliveMessage::new);
         put(MessageType.CancelMatchmaking, CancelMatchmakingMessage::new);
         put(MessageType.TeamCreate, TeamCreateMessage::new);
+        put(MessageType.GoHomeFromOfflinePractise, GoHomeFromOfflinePractiseMessage::new);
+        put(MessageType.GetPlayerProfile, GetPlayerProfileMessage::new);
     }};
 
     private final Map<MessageType, Supplier<PiranhaMessage>> suppliers;

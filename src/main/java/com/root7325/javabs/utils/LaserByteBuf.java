@@ -1,5 +1,6 @@
 package com.root7325.javabs.utils;
 
+import com.root7325.javabs.laser.logic.commons.GlobalId;
 import io.netty.buffer.ByteBuf;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,10 @@ public class LaserByteBuf {
 
     public int readInt() {
         return buffer.readInt();
+    }
+
+    public long readLong() {
+        return ((long) buffer.readInt() << 32) | (buffer.readInt() & 0xFFFFFFFFL);
     }
 
     public String readString() {
@@ -112,14 +117,22 @@ public class LaserByteBuf {
             writeVInt(i);
     }
 
-    public void writeVLong(int a, int b) {
-        writeVInt(a);
-        writeVInt(b);
+    public void writeLong(long l) {
+        buffer.writeLong(l);
+    }
+
+    public void writeVLong(long l) {
+        writeVInt((int) (l >> 32));
+        writeVInt((int) (l & 0xFFFFFFFFL));
     }
 
     public void writeDataReference(int classId, int instanceId) {
         writeVInt(classId);
         writeVInt(instanceId);
+    }
+
+    public void writeDataReference(GlobalId globalId) {
+        writeDataReference(globalId.getClassId(), globalId.getInstanceId());
     }
 
     public void writeHex(String hex) {

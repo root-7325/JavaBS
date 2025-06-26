@@ -1,4 +1,4 @@
-package com.root7325.javabs.config;
+package com.root7325.javabs.config.server;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class CryptoConfig {
-    private String serverKey;
-    private String clientSecretKey;
+public class ServerConfig {
+    private String host;
+    private int port;
 }
