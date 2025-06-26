@@ -3,6 +3,7 @@ package com.root7325.javabs.laser.protocol.packets.server;
 import com.root7325.javabs.config.game.Ruleset;
 import com.root7325.javabs.config.game.ShopSettings;
 import com.root7325.javabs.entity.player.Player;
+import com.root7325.javabs.laser.logic.event.EventManager;
 import com.root7325.javabs.laser.protocol.packets.MessageType;
 import com.root7325.javabs.laser.protocol.packets.PiranhaMessage;
 import com.root7325.javabs.utils.LaserByteBuf;
@@ -15,11 +16,13 @@ import java.util.Arrays;
  */
 public class OwnHomeDataMessage extends PiranhaMessage {
     private final Player player;
+    private final EventManager eventManager;
     private final Ruleset ruleset;
     private final ShopSettings shopSettings;
 
-    public OwnHomeDataMessage(Player player, Ruleset ruleset) {
+    public OwnHomeDataMessage(Player player, EventManager eventManager, Ruleset ruleset) {
         this.player = player;
+        this.eventManager = eventManager;
         this.ruleset = ruleset;
         this.shopSettings = ruleset.getShopSettings();
     }
@@ -109,20 +112,12 @@ public class OwnHomeDataMessage extends PiranhaMessage {
 
         out.writeArrayVInt(0, 30, 80, 170, 350, 0);
 
-        out.writeVInt(1);
-        out.writeVInt(1);
+        out.writeVInt(eventManager.getEvents().size());
+        for (int i = 0; i < eventManager.getEvents().size(); i++) {
+            out.writeVInt(i + 1);
+        }
 
-        out.writeVInt(1);
-        out.writeVInt(1);
-        out.writeVInt(1);
-        out.writeVInt(0);
-        out.writeVInt(5000);
-        out.writeVInt(25);
-        out.writeDataReference(15, 7);
-        out.writeVInt(3);
-        out.writeString();
-        out.writeVInt(0);
-        out.writeVInt(0);
+        eventManager.encode(out);
 
         out.writeVInt(0);
 
