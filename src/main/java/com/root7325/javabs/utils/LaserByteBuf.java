@@ -1,6 +1,6 @@
 package com.root7325.javabs.utils;
 
-import com.root7325.javabs.laser.logic.commons.GlobalId;
+import com.root7325.javabs.laser.logic.common.GlobalId;
 import io.netty.buffer.ByteBuf;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
