@@ -1,4 +1,4 @@
-package com.root7325.javabs.laser.logic.commons;
+package com.root7325.javabs.laser.logic.common;
 
 import com.root7325.javabs.utils.LaserByteBuf;
 import lombok.AllArgsConstructor;

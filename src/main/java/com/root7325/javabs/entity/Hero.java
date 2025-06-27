@@ -1,7 +1,7 @@
 package com.root7325.javabs.entity;
 
 import com.root7325.javabs.entity.player.Player;
-import com.root7325.javabs.laser.logic.commons.GlobalId;
+import com.root7325.javabs.laser.logic.common.GlobalId;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
