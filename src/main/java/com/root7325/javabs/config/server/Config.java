@@ -21,26 +21,6 @@ import java.io.InputStream;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Config {
-    private static final String YAML_FILE = "config.yaml";
-
-    private static Config instance;
-
     private ServerConfig serverConfig;
     private CryptoConfig cryptoConfig;
-
-    public static Config getInstance() {
-        if (instance == null) {
-            instance = loadConfig();
-        }
-        return instance;
-    }
-
-    private static Config loadConfig() {
-        Yaml yaml = new Yaml();
-        try (InputStream inputStream = Config.class.getClassLoader().getResourceAsStream(YAML_FILE)) {
-            return yaml.loadAs(inputStream, Config.class);
-        } catch (Exception ex) {
-            throw new RuntimeException("Failed to load yaml configuration.", ex);
-        }
-    }
 }
