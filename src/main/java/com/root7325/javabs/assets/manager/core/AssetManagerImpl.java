@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,16 +16,15 @@ import java.util.List;
  */
 @Slf4j
 public class AssetManagerImpl<T extends Asset> implements AssetManager<T> {
-    private final AssetType assetType;
-    private final List<T> list;
+    protected final AssetType assetType;
+    protected final List<T> list;
 
     @Inject
     public AssetManagerImpl(AssetType assetType, ServerConfig serverConfig, AssetLoader<T> assetLoader) {
         this.assetType = assetType;
-        this.list = new ArrayList<>();
 
         Path assetPath = Paths.get(serverConfig.getAssetsPath(), assetType.getRelativePath());
-        assetLoader.load(assetPath.toString());
+        this.list = assetLoader.load(assetPath.toString());
     }
 
     @Override
