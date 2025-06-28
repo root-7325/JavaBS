@@ -6,9 +6,11 @@ import java.io.File;
 
 /**
  * @author root7325 on 01.01.2025
+ * <p>
+ * TODO: remove enums that don't exist in v12.187
  */
 @Getter
-public enum CSV {
+public enum AssetType {
     SkinConfs(-1, "logic", "skin_confs"),
     GameModeVariations(-1, "logic", "game_mode_variations"),
     Milestones(39, "logic", "milestones"),
@@ -49,13 +51,13 @@ public enum CSV {
     private final String type;
     private final String file;
 
-    CSV(int id, String type, String file) {
+    AssetType(int id, String type, String file) {
         this.id = id;
         this.type = type;
         this.file = file;
     }
 
-    CSV(int id) {
+    AssetType(int id) {
         this.id = id;
         this.type = null;
         this.file = null;
@@ -64,4 +66,4 @@ public enum CSV {
     public String getRelativePath() {
         return String.format("csv_%s%s%s.csv", type, File.separator, file);
     }
-}
+} 
