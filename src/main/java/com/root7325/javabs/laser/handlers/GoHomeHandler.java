@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.root7325.javabs.config.game.Ruleset;
 import com.root7325.javabs.laser.core.LaserSession;
 import com.root7325.javabs.laser.logic.event.EventManager;
+import com.root7325.javabs.laser.protocol.packets.ILaserServerMessageFactory;
 import com.root7325.javabs.laser.protocol.packets.PiranhaMessage;
 import com.root7325.javabs.laser.protocol.packets.server.KeepAliveServerMessage;
 import com.root7325.javabs.laser.protocol.packets.server.OwnHomeDataMessage;
@@ -14,11 +15,10 @@ import lombok.AllArgsConstructor;
  */
 @AllArgsConstructor(onConstructor = @__({@Inject}))
 public class GoHomeHandler implements IHandler {
-    private final EventManager eventManager;
-    private final Ruleset ruleset;
+    private final ILaserServerMessageFactory serverMessageFactory;
 
     @Override
     public void handle(PiranhaMessage piranhaMessage, LaserSession session) {
-        session.writeAndFlush(new OwnHomeDataMessage(session.getPlayer(), eventManager, ruleset));
+        session.writeAndFlush(serverMessageFactory.createOwnHomeDataMessage(session.getPlayer()));
     }
 }
