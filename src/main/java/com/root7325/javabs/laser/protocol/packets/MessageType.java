@@ -14,6 +14,7 @@ public enum MessageType {
     ClientCapabilities(10107),
     KeepAlive(10108),
     AnalyticEvent(10110),
+    EndClientTurn(14102),
     MatchmakeRequest(14103),
     CancelMatchmaking(14106),
     GoHomeFromOfflinePractise(14109),

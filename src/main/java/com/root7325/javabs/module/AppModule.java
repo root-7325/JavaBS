@@ -20,6 +20,7 @@ public class AppModule extends AbstractModule {
         install(new NettyModule());
         install(new ClientMessageModule());
         install(new ServerMessageModule());
+        install(new CommandModule());
         install(new HandlerModule());
     }
 

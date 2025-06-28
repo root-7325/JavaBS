@@ -22,5 +22,6 @@ public class HandlerModule extends AbstractModule {
         mapBinder.addBinding(MessageType.TeamCreate).to(TeamCreateHandler.class);
         mapBinder.addBinding(MessageType.GoHomeFromOfflinePractise).to(GoHomeHandler.class);
         mapBinder.addBinding(MessageType.GetPlayerProfile).to(PlayerProfileHandler.class);
+        mapBinder.addBinding(MessageType.EndClientTurn).to(EctHandler.class);
     }
 }

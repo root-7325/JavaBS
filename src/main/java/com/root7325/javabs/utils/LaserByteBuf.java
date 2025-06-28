@@ -21,6 +21,10 @@ public class LaserByteBuf {
         return result;
     }
 
+    public boolean readBoolean() {
+        return buffer.readBoolean();
+    }
+
     public int readInt() {
         return buffer.readInt();
     }
@@ -45,6 +49,14 @@ public class LaserByteBuf {
         for (int j = 0; j < 4 && (b & 0x80) != 0; j++, offset += 7)
             i |= ((b = buffer.readByte()) & 0x7F) << offset;
         return ((b & 0x80) != 0) ? -1 : (i | ((sign == 1 && offset < 32) ? (i | -1 << offset) : i));
+    }
+
+    public long readVLong() {
+        return ((long) readVInt() << 32) | (readVInt());
+    }
+
+    public GlobalId readDataReference() {
+        return new GlobalId(readVInt(), readVInt());
     }
 
     public void writeBoolean(boolean value) {
@@ -84,7 +96,8 @@ public class LaserByteBuf {
         if (value == null) {
             writeInt(-1);
             return;
-        };
+        }
+        ;
 
         byte[] bytes = value.getBytes(StandardCharsets.UTF_8);
         writeInt(bytes.length);
@@ -136,13 +149,13 @@ public class LaserByteBuf {
     }
 
     public void writeHex(String hex) {
-        byte[] bytes = new byte[hex.length()/2];
-        String[] strBytes = new String[hex.length()/2];
+        byte[] bytes = new byte[hex.length() / 2];
+        String[] strBytes = new String[hex.length() / 2];
         int k = 0;
-        for (int i = 0; i < hex.length(); i=i+2) {
-            int j = i+2;
-            strBytes[k] = hex.substring(i,j);
-            bytes[k] = (byte)Integer.parseInt(strBytes[k], 16);
+        for (int i = 0; i < hex.length(); i = i + 2) {
+            int j = i + 2;
+            strBytes[k] = hex.substring(i, j);
+            bytes[k] = (byte) Integer.parseInt(strBytes[k], 16);
             k++;
         }
         buffer.writeBytes(bytes);
