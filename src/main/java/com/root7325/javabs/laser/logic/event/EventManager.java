@@ -1,7 +1,10 @@
 package com.root7325.javabs.laser.logic.event;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.root7325.javabs.assets.manager.location.LocationManager;
 import com.root7325.javabs.utils.LaserByteBuf;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,18 +13,36 @@ import java.util.List;
 /**
  * @author root7325 on 26.06.2025
  */
+@Slf4j
 @Singleton
 public class EventManager {
+    private static final List<String> GAME_MODES = List.of("CoinRush", "BattleRoyale", "LaserBall", "AttackDefend");
     private final List<Event> events;
 
-    public EventManager() {
+    @Inject
+    public EventManager(LocationManager locationManager) {
         this.events = new ArrayList<>();
+        List<String> failedModes = new ArrayList<>();
+        for (String mode : GAME_MODES) {
+            if (!addEventForMode(locationManager, mode)) {
+                failedModes.add(mode);
+            }
+        }
+        if (!failedModes.isEmpty()) {
+            log.warn("Failed to pick random for modes: {}!", failedModes);
+        }
+        if (events.isEmpty()) {
+            throw new RuntimeException("Failed to add events.");
+        }
+    }
 
-        // TODO: generate with game assets
-        this.events.add(new Event(1, 7));
-        this.events.add(new Event(2, 14));
-        this.events.add(new Event(3, 24));
-        this.events.add(new Event(4, 47));
+    private boolean addEventForMode(LocationManager locationManager, String gameMode) {
+        return locationManager.getRandomByGameMode(gameMode)
+                .map(location -> {
+                    events.add(new Event(events.size() + 1, location.getId()));
+                    return true;
+                })
+                .orElse(false);
     }
 
     public void encode(LaserByteBuf out) {

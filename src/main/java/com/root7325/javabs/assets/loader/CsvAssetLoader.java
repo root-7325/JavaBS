@@ -39,7 +39,7 @@ public class CsvAssetLoader<T extends Asset> implements AssetLoader<T> {
 
             assignIds(assetList);
 
-            log.info("Loaded {} {} assets from {}", assetList.size(), assetClass.getSimpleName(), filePath);
+            log.debug("Loaded {} {} assets from {}", assetList.size(), assetClass.getSimpleName(), filePath);
             return assetList;
         } catch (IOException ex) {
             log.error("Failed to load asset from: {}", filePath);
