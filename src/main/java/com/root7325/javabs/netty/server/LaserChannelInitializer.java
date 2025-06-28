@@ -18,7 +18,7 @@ public class LaserChannelInitializer extends ChannelInitializer<Channel> {
 
     @Override
     protected void initChannel(Channel channel) throws Exception {
-        channel.pipeline().addLast(new PiranhaMessageDecoder());
+        channel.pipeline().addLast(injector.getInstance(PiranhaMessageDecoder.class));
         channel.pipeline().addLast(new PiranhaMessageEncoder());
         channel.pipeline().addLast(injector.getInstance(LaserChannelHandler.class));
     }
