@@ -6,7 +6,7 @@ import com.root7325.javabs.assets.loader.AssetLoader;
 import com.root7325.javabs.assets.loader.CsvAssetLoader;
 import com.root7325.javabs.assets.manager.thumbnail.ThumbnailManager;
 import com.root7325.javabs.assets.manager.thumbnail.ThumbnailManagerImpl;
-import com.root7325.javabs.assets.model.PlayerThumbnails;
+import com.root7325.javabs.assets.model.PlayerThumbnail;
 
 /**
  * @author root7325 on 28.06.2025
@@ -18,7 +18,7 @@ public class AssetModule extends AbstractModule {
     }
 
     @Provides
-    private AssetLoader<PlayerThumbnails> provideThumbnailLoader() {
-        return new CsvAssetLoader<>(PlayerThumbnails.class);
+    private AssetLoader<PlayerThumbnail> provideThumbnailLoader() {
+        return new CsvAssetLoader<>(PlayerThumbnail.class);
     }
 }
