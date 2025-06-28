@@ -1,5 +1,7 @@
 package com.root7325.javabs.laser.protocol.packets.server;
 
+import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
 import com.root7325.javabs.config.game.Ruleset;
 import com.root7325.javabs.config.game.ShopSettings;
 import com.root7325.javabs.entity.player.Player;
@@ -7,9 +9,6 @@ import com.root7325.javabs.laser.logic.event.EventManager;
 import com.root7325.javabs.laser.protocol.packets.MessageType;
 import com.root7325.javabs.laser.protocol.packets.PiranhaMessage;
 import com.root7325.javabs.utils.LaserByteBuf;
-import lombok.AllArgsConstructor;
-
-import java.util.Arrays;
 
 /**
  * @author root7325 on 17.06.2025
@@ -20,7 +19,8 @@ public class OwnHomeDataMessage extends PiranhaMessage {
     private final Ruleset ruleset;
     private final ShopSettings shopSettings;
 
-    public OwnHomeDataMessage(Player player, EventManager eventManager, Ruleset ruleset) {
+    @Inject
+    public OwnHomeDataMessage(EventManager eventManager, Ruleset ruleset, @Assisted Player player) {
         this.player = player;
         this.eventManager = eventManager;
         this.ruleset = ruleset;

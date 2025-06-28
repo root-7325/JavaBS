@@ -27,7 +27,7 @@ public class LaserSession {
     private final ICrypto crypto;
 
     @Setter
-    private Player player = new Player();
+    private Player player;
 
     public void write(PiranhaMessage... messages) {
         for (PiranhaMessage packet : messages) {
