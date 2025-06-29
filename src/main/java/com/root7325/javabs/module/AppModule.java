@@ -19,6 +19,8 @@ public class AppModule extends AbstractModule {
         install(new CryptoModule());
         install(new DatabaseModule());
         install(new NettyModule());
+        install(new ClientMessageModule());
+        install(new ServerMessageModule());
         install(new HandlerModule());
     }
 

@@ -1,5 +1,6 @@
 package com.root7325.javabs.netty.codec;
 
+import com.google.inject.Inject;
 import com.root7325.javabs.laser.core.LaserSession;
 import com.root7325.javabs.laser.crypto.ICrypto;
 import com.root7325.javabs.laser.protocol.packets.LaserMessageFactory;
@@ -20,14 +21,10 @@ import java.util.List;
  * @author root7325 on 17.06.2025
  */
 @Slf4j
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor = @__({@Inject}))
 public class PiranhaMessageDecoder extends ByteToMessageDecoder {
     private final LaserMessageFactory messageFactory;
     private ICrypto crypto;
-
-    public PiranhaMessageDecoder() {
-        this.messageFactory = new LaserMessageFactory();
-    }
 
     @Override
     protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf, List<Object> list) throws Exception {
