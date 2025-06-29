@@ -21,6 +21,7 @@ This project is a kind of **time machine into 2022 for me**, recreating good old
 8. Flexible Ruleset system
 9. Player profiles (own profile only)
 10. Basic event manager
+11. Assets parsing
 
 ## 🚧 Potential Future Features
 1. Full-featured player profiles
@@ -28,7 +29,6 @@ This project is a kind of **time machine into 2022 for me**, recreating good old
 3. Teams
 4. Gatcha system
 5. Stubs for some functions (matchmaking, battle log, etc.)
-6. Assets parsing
 
 ## ⚙️ Requirements
 - Java 17 or higher

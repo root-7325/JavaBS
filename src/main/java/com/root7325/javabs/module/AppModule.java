@@ -15,6 +15,7 @@ public class AppModule extends AbstractModule {
     protected void configure() {
         install(new ConfigModule());
         install(new RulesetModule());
+        install(new AssetModule());
         install(new CryptoModule());
         install(new DatabaseModule());
         install(new NettyModule());
