@@ -3,6 +3,7 @@ package com.root7325.javabs.entity.player;
 import com.root7325.javabs.entity.Hero;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,5 +42,10 @@ public class Player {
 
         this.heroes = new ArrayList<>();
         heroes.add(new Hero(this,0, 0));
+    }
+
+    public void syncFields() {
+        settings.syncFields();
+        resources.syncFields();
     }
 }

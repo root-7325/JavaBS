@@ -14,6 +14,8 @@ public enum MessageType {
     ClientCapabilities(10107),
     KeepAlive(10108),
     AnalyticEvent(10110),
+    ChangeAvatarName(10212),
+    EndClientTurn(14102),
     MatchmakeRequest(14103),
     CancelMatchmaking(14106),
     GoHomeFromOfflinePractise(14109),
@@ -27,6 +29,7 @@ public enum MessageType {
     MatchMakingCancelled(20406),
     OwnHomeData(24101),
     MatchmakeFailed(24108),
+    AvailableServerCommand(24111),
     PlayerProfile(24113),
     TeamError(24129);
 

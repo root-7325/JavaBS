@@ -6,7 +6,7 @@
 
     <groupId>com.root7325</groupId>
     <artifactId>javabs</artifactId>
-    <version>2.5</version>
+    <version>3.0</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -15,7 +15,7 @@
 
         <netty.version>4.1.108.Final</netty.version>
         <lombok.version>1.18.36</lombok.version>
-        <juice.version>7.0.0</juice.version>
+        <guice.version>7.0.0</guice.version>
         <mysql.version>8.0.33</mysql.version>
         <hibernate.version>6.6.6.Final</hibernate.version>
         <snakeyaml.version>2.3</snakeyaml.version>
@@ -39,7 +39,12 @@
         <dependency>
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
-            <version>${juice.version}</version>
+            <version>${guice.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.inject.extensions</groupId>
+            <artifactId>guice-assistedinject</artifactId>
+            <version>${guice.version}</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>

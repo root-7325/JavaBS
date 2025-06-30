@@ -2,44 +2,39 @@
 # JavaBS - a Brawl Stars (v12.187) server emulator ⚡
 **JavaBS** is an **experimental server emulator** (even more experimental than [KyuBancho!](https://gitlab.com/root-7325/kyu-bancho)) written on **Java**.
 
-![Running JavaBS](screenshots/main.png)
+![JavaBS banner](images/img.png)
 
 ## ⚠️ Before all
-This project is in **alpha state**. There's **high chance** that stated features **won't be implemented**. The code also **may** contain bugs and **questionable** solutions!
+This project is in **alpha state**. There's **high chance** that stated features **won't be implemented**. Expect code updates with **a lot of overall structure changes**.
 
 ## 💭 Motivation
 This project is a kind of **time machine into 2022 for me**, recreating good old days when I tried things in **Python**, lol. This is just **a fun experiment** to **relive** those memories. 
 
-## ✅ Implemented features
-1. Netty implemented TCP server
-2. Basic user session management
-3. MySQL Database with Hibernate
-4. TweetNaCl cryptography
-5. Lobby at it's early stage (OHD only)
-6. DI with Guice
-7. Asynchronous processing
-8. Flexible Ruleset system
-9. Player profiles (own profile only)
-10. Basic event manager
+## 🎯 What's Working
+- **Network Layer**: Netty-based TCP server
+- **Processing**: Asynchronous processing via `ExecutorService` for non-blocking operations
+- **Database**: MySQL integration with Hibernate ORM
+- **Architecture**: DI with Guice, modular design
+- **Game Logic**: Assets parsing, basic messages & commands implementations, session management
+- **Configuration**: Flexible ruleset and config system
 
 ## 🚧 Potential Future Features
-1. Full-featured player profiles
-2. Leaderboards
-3. Teams
-4. Gatcha system
-5. Stubs for some functions (matchmaking, battle log, etc.)
-6. Assets parsing
+- Full-featured player profiles
+- Leaderboards
+- Gatcha system
+- Implementation of most messages/commands
+- Migrations with FlyWay
+- PvP (don't expect)
 
 ## ⚙️ Requirements
-- Java 17 or higher
-- Maven 3.6 or higher
+- Java 17+
+- Maven 3.6+
 - MySQL Server
-- Patched BS client (still can be found)
 
 ## 🚀 Quick Start
 1. Setup MySQL Server
-    - Fill in your credentials using template located in: `src/main/resources/hibernate.cfg.template.xml`
-2. Check config
+    - Use template located in `src/main/resources/hibernate.cfg.template.xml`
+2. Fill out your config
     - Use template located in: `src/main/resources/config.yaml.template`
 3. Fill out your ruleset
     - Use template located in: `src/main/resources/ruleset.yaml.template`

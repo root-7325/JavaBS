@@ -7,6 +7,7 @@ import com.root7325.javabs.entity.player.Player;
 import com.root7325.javabs.laser.core.ISessionManager;
 import com.root7325.javabs.laser.core.LaserSession;
 import com.root7325.javabs.laser.logic.event.EventManager;
+import com.root7325.javabs.laser.protocol.packets.ILaserServerMessageFactory;
 import com.root7325.javabs.laser.protocol.packets.PiranhaMessage;
 import com.root7325.javabs.laser.protocol.packets.client.LoginMessage;
 import com.root7325.javabs.laser.protocol.packets.server.LoginFailedMessage;
@@ -19,10 +20,8 @@ import lombok.AllArgsConstructor;
  */
 @AllArgsConstructor(onConstructor = @__({@Inject}))
 public class LoginHandler implements IHandler {
-    private final ISessionManager sessionManager;
+    private final ILaserServerMessageFactory serverMessageFactory;
     private final PlayerDAO playerDAO;
-    private final EventManager eventManager;
-    private final Ruleset ruleset;
 
     @Override
     public void handle(PiranhaMessage piranhaMessage, LaserSession session) {
@@ -41,7 +40,10 @@ public class LoginHandler implements IHandler {
         if (player != null) {
             session.setPlayer(player);
 
-            session.writeAndFlush(new LoginOkMessage(player), new OwnHomeDataMessage(player, eventManager, ruleset));
+            session.writeAndFlush(
+                    new LoginOkMessage(player),
+                    serverMessageFactory.createOwnHomeDataMessage(player)
+            );
         } else {
             session.writeAndFlush(new LoginFailedMessage("Account not found."));
         }
