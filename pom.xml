@@ -6,7 +6,7 @@
 
     <groupId>com.root7325</groupId>
     <artifactId>javabs</artifactId>
-    <version>2.5</version>
+    <version>3.0</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
