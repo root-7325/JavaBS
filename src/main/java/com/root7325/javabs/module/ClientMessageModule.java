@@ -29,5 +29,6 @@ public class ClientMessageModule extends AbstractModule {
         mapBinder.addBinding(MessageType.GoHomeFromOfflinePractise).to(GoHomeFromOfflinePractiseMessage.class);
         mapBinder.addBinding(MessageType.GetPlayerProfile).to(GetPlayerProfileMessage.class);
         mapBinder.addBinding(MessageType.EndClientTurn).to(EndClientTurnMessage.class);
+        mapBinder.addBinding(MessageType.ChangeAvatarName).to(ChangeAvatarNameMessage.class);
     }
 }

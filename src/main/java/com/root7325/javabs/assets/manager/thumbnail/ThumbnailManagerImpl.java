@@ -7,6 +7,8 @@ import com.root7325.javabs.assets.model.AssetType;
 import com.root7325.javabs.assets.model.PlayerThumbnail;
 import com.root7325.javabs.config.server.ServerConfig;
 
+import java.util.Optional;
+
 /**
  * @author root7325 on 28.06.2025
  */
@@ -14,5 +16,12 @@ public class ThumbnailManagerImpl extends AssetManagerImpl<PlayerThumbnail> impl
     @Inject
     public ThumbnailManagerImpl(ServerConfig serverConfig, AssetLoader<PlayerThumbnail> assetLoader) {
         super(AssetType.PlayerThumbnails, serverConfig, assetLoader);
+    }
+
+    @Override
+    public Optional<PlayerThumbnail> getThumbnail(int id) {
+        return list.stream()
+                .filter(playerThumbnail -> playerThumbnail.getId() == id)
+                .findAny();
     }
 }

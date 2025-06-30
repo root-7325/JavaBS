@@ -154,7 +154,7 @@ public class OwnHomeDataMessage extends PiranhaMessage {
         out.writeVLong(player.getId());
 
         out.writeString(player.getSettings().getUsername());
-        out.writeBoolean(true);
+        out.writeBoolean(player.getSettings().isRegistered());
         out.writeInt(-1);
 
         out.writeVInt(8);

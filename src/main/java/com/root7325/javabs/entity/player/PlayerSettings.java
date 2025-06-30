@@ -14,8 +14,8 @@ import org.hibernate.type.SqlTypes;
 @Data
 @Embeddable
 public class PlayerSettings {
-    @Column(length = 128)
-    private String username = "JavaBS";
+    @Column(length = 32)
+    private String username = "Brawler";
 
     @JdbcTypeCode(SqlTypes.BOOLEAN)
     private boolean registered = false;
