@@ -64,4 +64,21 @@ public class PlayerDAOImpl implements PlayerDAO {
             return null;
         }, executorService);
     }
+
+    @Override
+    public CompletableFuture<Player> savePlayer(Player player) {
+        return CompletableFuture.supplyAsync(() -> {
+            try (Session session = sessionFactory.openSession()) {
+                Transaction transaction = session.beginTransaction();
+                player.syncFields();
+                Player merged = session.merge(player);
+                transaction.commit();
+                log.debug("Saved player with id {}", player.getId());
+                return merged;
+            } catch (Exception ex) {
+                log.error("Failed to save player.", ex);
+                return null;
+            }
+        }, executorService);
+    }
 }

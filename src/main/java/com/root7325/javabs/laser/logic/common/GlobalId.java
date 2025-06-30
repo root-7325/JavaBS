@@ -1,5 +1,6 @@
 package com.root7325.javabs.laser.logic.common;
 
+import com.root7325.javabs.assets.model.AssetType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -11,6 +12,11 @@ import lombok.Getter;
 public class GlobalId {
     private final int classId;
     private final int instanceId;
+
+    public GlobalId(AssetType assetType, int instanceId) {
+        this.classId = assetType.getId();
+        this.instanceId = instanceId;
+    }
 
     public GlobalId(int[] ref) {
         if (ref[0] != 0) {
