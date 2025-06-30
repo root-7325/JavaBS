@@ -1,5 +1,7 @@
 package com.root7325.javabs.laser.core;
 
+import com.google.inject.Inject;
+import com.root7325.javabs.dao.PlayerDAO;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +17,12 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 public class SessionManager implements ISessionManager {
     private final ConcurrentHashMap<Long, LaserSession> activeSessions = new ConcurrentHashMap<>();
+    private final PlayerDAO playerDAO;
+
+    @Inject
+    public SessionManager(PlayerDAO playerDAO) {
+        this.playerDAO = playerDAO;
+    }
 
     public Collection<LaserSession> getSessions() {
         return Collections.unmodifiableCollection(activeSessions.values());
@@ -45,6 +53,7 @@ public class SessionManager implements ISessionManager {
     public void removeSession(LaserSession session) {
         if (session != null && session.getPlayer() != null) {
             removeSession(session.getPlayer().getId());
+            playerDAO.savePlayer(session.getPlayer());
         }
     }
 

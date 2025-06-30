@@ -56,6 +56,12 @@ public class PlayerResources {
         initializeResourceSlots();
     }
 
+    protected void syncFields() {
+        this.setCoinsAmount(coins.getAmount());
+        this.setBrawlBoxTokensAmount(brawlBoxTokens.getAmount());
+        this.setBigBoxTokensAmount(bigBoxTokens.getAmount());
+    }
+
     private void initializeResourceSlots() {
         this.setCoins(new LogicDataSlot(new GlobalId(5, 8), coinsAmount));
         this.setBrawlBoxTokens(new LogicDataSlot(new GlobalId(5, 1), brawlBoxTokensAmount));
