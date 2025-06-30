@@ -5,6 +5,7 @@ import com.google.inject.assistedinject.Assisted;
 import com.root7325.javabs.config.game.Ruleset;
 import com.root7325.javabs.config.game.ShopSettings;
 import com.root7325.javabs.entity.player.Player;
+import com.root7325.javabs.laser.enums.EventSlotType;
 import com.root7325.javabs.laser.logic.event.EventManager;
 import com.root7325.javabs.laser.protocol.packets.MessageType;
 import com.root7325.javabs.laser.protocol.packets.PiranhaMessage;
@@ -34,6 +35,19 @@ public class OwnHomeDataMessage extends PiranhaMessage {
 
     @Override
     public void encode(LaserByteBuf out) {
+        encodeDailyData(out);
+        encodeConfData(out);
+
+        out.writeLong(player.getId());
+        out.writeVInt(0);
+        out.writeVInt(0);
+
+        encodeAvatar(out);
+
+        out.writeVInt(0);
+    }
+
+    public void encodeDailyData(LaserByteBuf out) {
         out.writeVInt(0);
         out.writeVInt(0);
 
@@ -96,7 +110,9 @@ public class OwnHomeDataMessage extends PiranhaMessage {
         out.writeVInt(player.getResources().getTickets());
 
         out.writeVInt(0);
+    }
 
+    public void encodeConfData(LaserByteBuf out) {
         out.writeVInt(0);
         out.writeVInt(shopSettings.getBrawlBoxTokenCost());
         out.writeVInt(shopSettings.getBrawlBoxShopCost());
@@ -112,14 +128,12 @@ public class OwnHomeDataMessage extends PiranhaMessage {
 
         out.writeArrayVInt(0, 30, 80, 170, 350, 0);
 
-        out.writeVInt(eventManager.getEvents().size());
-        for (int i = 0; i < eventManager.getEvents().size(); i++) {
-            out.writeVInt(i + 1);
+        out.writeVInt(EventSlotType.values().length);
+        for (EventSlotType value : EventSlotType.values()) {
+            out.writeVInt(value.getIndex());
         }
 
         eventManager.encode(out);
-
-        out.writeVInt(0);
 
         out.writeArrayVInt(ruleset.getBrawlerUpgradeCost());
         out.writeArrayVInt(1, 2, 3, 4, 5, 10, 15, 20);
@@ -144,11 +158,9 @@ public class OwnHomeDataMessage extends PiranhaMessage {
         out.writeVInt(0);
         out.writeVInt(0);
         out.writeVInt(0);
+    }
 
-        out.writeLong(player.getId());
-        out.writeVInt(0);
-        out.writeVInt(0);
-
+    public void encodeAvatar(LaserByteBuf out) {
         out.writeVLong(player.getId());
         out.writeVLong(player.getId());
         out.writeVLong(player.getId());
@@ -227,7 +239,6 @@ public class OwnHomeDataMessage extends PiranhaMessage {
         out.writeVInt(0);
         out.writeVInt(0);
         out.writeVInt(player.getSettings().getTutorialStep());
-        out.writeVInt(0);
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.root7325.javabs.assets.manager.core.AssetManagerImpl;
 import com.root7325.javabs.assets.model.AssetType;
 import com.root7325.javabs.assets.model.Location;
 import com.root7325.javabs.config.server.ServerConfig;
+import com.root7325.javabs.laser.enums.GameMode;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,16 +22,16 @@ public class LocationManagerImpl extends AssetManagerImpl<Location> implements L
     }
 
     @Override
-    public List<Location> getByGameMode(String gameMode) {
+    public List<Location> getByGameMode(GameMode gameMode) {
         return list.stream()
-                .filter(location -> !location.isDisabled() && location.getGameMode().equals(gameMode)) // TODO: make configurable?
+                .filter(location -> !location.isDisabled() && location.getGameMode().equals(gameMode.toString())) // TODO: make configurable?
                 .toList();
     }
 
     @Override
-    public Optional<Location> getRandomByGameMode(String gameMode) {
+    public Optional<Location> getRandomByGameMode(GameMode gameMode) {
         List<Location> filtered = list.stream()
-            .filter(location -> !location.isDisabled() && location.getGameMode().equals(gameMode))
+            .filter(location -> !location.isDisabled() && location.getGameMode().equals(gameMode.toString()))
             .toList();
         if (filtered.isEmpty()) {
             return Optional.empty();
