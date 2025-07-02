@@ -6,13 +6,11 @@ import com.root7325.javabs.dao.PlayerDAO;
 import com.root7325.javabs.entity.player.Player;
 import com.root7325.javabs.laser.core.ISessionManager;
 import com.root7325.javabs.laser.core.LaserSession;
-import com.root7325.javabs.laser.logic.event.EventManager;
 import com.root7325.javabs.laser.protocol.packets.ILaserServerMessageFactory;
 import com.root7325.javabs.laser.protocol.packets.PiranhaMessage;
 import com.root7325.javabs.laser.protocol.packets.client.LoginMessage;
 import com.root7325.javabs.laser.protocol.packets.server.LoginFailedMessage;
 import com.root7325.javabs.laser.protocol.packets.server.LoginOkMessage;
-import com.root7325.javabs.laser.protocol.packets.server.OwnHomeDataMessage;
 import lombok.AllArgsConstructor;
 
 /**
@@ -21,6 +19,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor(onConstructor = @__({@Inject}))
 public class LoginHandler implements IHandler {
     private final ILaserServerMessageFactory serverMessageFactory;
+    private final ISessionManager sessionManager;
     private final PlayerDAO playerDAO;
 
     @Override
@@ -39,6 +38,7 @@ public class LoginHandler implements IHandler {
     private void handleLogin(LaserSession session, Player player) {
         if (player != null) {
             session.setPlayer(player);
+            sessionManager.addSession(session);
 
             session.writeAndFlush(
                     new LoginOkMessage(player),
