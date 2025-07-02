@@ -6,6 +6,7 @@ import com.google.inject.Singleton;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 /**
  * @author root7325 on 22.06.2025
@@ -19,6 +20,7 @@ public class AppModule extends AbstractModule {
         install(new CryptoModule());
         install(new DatabaseModule());
         install(new NettyModule());
+        install(new EventGenerationModule());
         install(new ClientMessageModule());
         install(new ServerMessageModule());
         install(new CommandModule());
@@ -28,5 +30,11 @@ public class AppModule extends AbstractModule {
     @Provides
     private ExecutorService provideExecutorService() {
         return Executors.newCachedThreadPool();
+    }
+
+    @Provides
+    @Singleton
+    private ScheduledExecutorService provideScheduledExecutorService() {
+        return Executors.newSingleThreadScheduledExecutor();
     }
 }
