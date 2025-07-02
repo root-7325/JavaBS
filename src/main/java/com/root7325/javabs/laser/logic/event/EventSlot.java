@@ -9,26 +9,12 @@ import lombok.Setter;
 /**
  * @author root7325 on 30.06.2025
  */
+@Getter
+@Setter
 @RequiredArgsConstructor
 public class EventSlot {
-    private final EventSlotType eventSlotType;
-    private final GameMode[] allowedModes;
-    private int modeIndex;
-    @Getter
-    private final int eventIndex;
+    private final EventSlotType slotType;
+    private GameMode currentMode;
 
-    @Setter
-    @Getter
     private Event event;
-    @Setter
-    @Getter
-    private Event nextEvent;
-
-    public GameMode getCurrentMode() {
-        return allowedModes[modeIndex % allowedModes.length];
-    }
-
-    public GameMode getNextMode() {
-        return allowedModes[(modeIndex + 1) % allowedModes.length];
-    }
 }

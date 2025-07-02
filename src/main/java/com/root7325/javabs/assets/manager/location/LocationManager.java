@@ -13,4 +13,5 @@ import java.util.Optional;
 public interface LocationManager extends AssetManager<Location> {
     List<Location> getByGameMode(GameMode gameMode);
     Optional<Location> getRandomByGameMode(GameMode gameMode);
+    Optional<Location> getTeamPairById(int id);
 }
