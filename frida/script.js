@@ -66,7 +66,6 @@ const ArxanPatcher = {
     init() {
         Armceptor.jumpout(Libg.offset(Addresses.createGameJump), Libg.offset(Addresses.createGameClean));
         Armceptor.nop(Libg.offset(Addresses.unk));
-        Armceptor.nop(Libg.offset(0x3BD214));
         Armceptor.jumpout(Libg.offset(Addresses.loginJump), Libg.offset(Addresses.loginClean));
         Armceptor.jumpout(Libg.offset(Addresses.ultButtonJump), Libg.offset(Addresses.ultButtonClean));
 
