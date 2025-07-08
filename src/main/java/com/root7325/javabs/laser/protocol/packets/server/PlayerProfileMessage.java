@@ -40,6 +40,9 @@ public class PlayerProfileMessage extends PiranhaMessage {
             out.writeDataReference(5, player.getHeroes().size());
             out.writeDataReference(7, player.getSettings().getThumbnail().createGlobalId());
         }
+
+        out.writeBoolean(false);
+        out.writeBoolean(false);
     }
 
     @Override
