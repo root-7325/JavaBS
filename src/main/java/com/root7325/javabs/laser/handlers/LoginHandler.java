@@ -9,6 +9,7 @@ import com.root7325.javabs.laser.core.LaserSession;
 import com.root7325.javabs.laser.protocol.packets.ILaserServerMessageFactory;
 import com.root7325.javabs.laser.protocol.packets.PiranhaMessage;
 import com.root7325.javabs.laser.protocol.packets.client.LoginMessage;
+import com.root7325.javabs.laser.protocol.packets.server.LobbyInfoMessage;
 import com.root7325.javabs.laser.protocol.packets.server.LoginFailedMessage;
 import com.root7325.javabs.laser.protocol.packets.server.LoginOkMessage;
 import lombok.AllArgsConstructor;
@@ -40,10 +41,15 @@ public class LoginHandler implements IHandler {
             session.setPlayer(player);
             sessionManager.addSession(session);
 
-            session.writeAndFlush(
+            session.write(
                     new LoginOkMessage(player),
                     serverMessageFactory.createOwnHomeDataMessage(player)
             );
+
+            for (int i = 0; i < 4; i++) {
+                session.write(new LobbyInfoMessage(sessionManager.getSessionsAmount()));
+            }
+            session.flush();
         } else {
             session.writeAndFlush(new LoginFailedMessage("Account not found."));
         }

@@ -43,10 +43,10 @@ This project is a kind of **time machine into 2022 for me**, recreating good old
 > You can place your `.yaml` config files next to your `.jar` file or keep them inside in resources directory.
 
 ## 📱 Connecting to server
-1. Either patch client on your own (using `frida/script.js`)
-2. Or use pre-made apk from here (**...a bit later**)
+1. Patch client manually using `frida/script.js` (**compatible with Frida 17 and below**).
+2. Alternatively, **a pre-patched APK** available [here](https://disk.yandex.ru/d/uXqQzNI0lOOtgg).
 
-> Default IP is not set in script, so don't forget to change `Config.HOST_PATCH.target` field.
+> Default server IP is not set. Be sure to update `Config.HOST_PATCH.target` field in either `script.js` or `libroot7325.script.so` to match your server's address.
 
 ## ⭐️ Credits
 - root7325 - creator & lead dev :p
