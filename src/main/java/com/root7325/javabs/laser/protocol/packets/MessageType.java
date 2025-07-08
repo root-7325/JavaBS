@@ -27,6 +27,7 @@ public enum MessageType {
     LoginOk(20104),
     KeepAliveServer(20108),
     MatchMakingCancelled(20406),
+    LobbyInfo(23457),
     OwnHomeData(24101),
     MatchmakeFailed(24108),
     AvailableServerCommand(24111),

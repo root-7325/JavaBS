@@ -2,6 +2,7 @@ package com.root7325.javabs.laser.core;
 
 import com.google.inject.Inject;
 import com.root7325.javabs.dao.PlayerDAO;
+import com.root7325.javabs.laser.protocol.packets.server.LobbyInfoMessage;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,10 +19,12 @@ import java.util.concurrent.ConcurrentHashMap;
 public class SessionManager implements ISessionManager {
     private final ConcurrentHashMap<Long, LaserSession> activeSessions = new ConcurrentHashMap<>();
     private final PlayerDAO playerDAO;
+    private final IPacketDispatcher packetDispatcher;
 
     @Inject
-    public SessionManager(PlayerDAO playerDAO) {
+    public SessionManager(PlayerDAO playerDAO, IPacketDispatcher packetDispatcher) {
         this.playerDAO = playerDAO;
+        this.packetDispatcher = packetDispatcher;
     }
 
     public Collection<LaserSession> getSessions() {
@@ -44,10 +47,12 @@ public class SessionManager implements ISessionManager {
         }
 
         activeSessions.put(id, session);
+        packetDispatcher.broadcastExcept(player -> new LobbyInfoMessage(getSessionsAmount()), session);
     }
 
     public void removeSession(long id) {
         activeSessions.remove(id);
+        packetDispatcher.broadcast(player -> new LobbyInfoMessage(getSessionsAmount()));
     }
 
     public void removeSession(LaserSession session) {
