@@ -16,7 +16,10 @@ import java.io.Reader;
 import java.util.List;
 
 /**
+ * Implementation of an AssetLoader interface.
+ *
  * @author root7325 on 28.06.2025
+ * @see AssetLoader
  */
 @Slf4j
 @AllArgsConstructor

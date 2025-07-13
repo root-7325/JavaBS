@@ -14,7 +14,10 @@ import java.util.Optional;
 import java.util.Random;
 
 /**
+ * Implementation of a LocationManager interface.
+ *
  * @author root7325 on 28.06.2025
+ * @see LocationManager
  */
 @Slf4j
 public class LocationManagerImpl extends AssetManagerImpl<Location> implements LocationManager {
