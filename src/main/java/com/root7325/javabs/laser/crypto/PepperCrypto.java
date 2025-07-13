@@ -13,7 +13,10 @@ import java.util.Arrays;
 import java.util.HexFormat;
 
 /**
+ * Implementation of TweetNaCl cryptography.
+ *
  * @author root7325 on 11.01.2025
+ * @see ICrypto
  */
 @Slf4j
 public class PepperCrypto implements ICrypto {

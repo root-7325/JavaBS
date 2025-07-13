@@ -8,7 +8,10 @@ import lombok.AllArgsConstructor;
 import java.util.function.Function;
 
 /**
+ * Implementation of an IPacketDispatcher interface.
+ *
  * @author root7325 on 01.07.2025
+ * @see IPacketDispatcher
  */
 @AllArgsConstructor(onConstructor = @__({@Inject}))
 public class PacketDispatcher implements IPacketDispatcher {

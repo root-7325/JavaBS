@@ -13,7 +13,10 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * Implementation of an ISessionManager interface.
+ *
  * @author root7325 on 17.06.2025
+ * @see ISessionManager
  */
 @Slf4j
 public class SessionManager implements ISessionManager {

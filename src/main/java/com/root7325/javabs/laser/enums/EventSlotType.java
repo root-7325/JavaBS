@@ -1,6 +1,8 @@
 package com.root7325.javabs.laser.enums;
 
 /**
+ * Enumeration of all event slot types.
+ *
  * @author root7325 on 30.06.2025
  */
 public enum EventSlotType {
