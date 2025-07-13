@@ -12,7 +12,10 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 
 /**
+ * Asynchronous Hibernate-based implementation of PlayerDAO.
+ *
  * @author root7325 on 17.06.2025
+ * @see PlayerDAO
  */
 @Slf4j
 @AllArgsConstructor(onConstructor = @__({@Inject}))
