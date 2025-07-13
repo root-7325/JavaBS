@@ -6,6 +6,8 @@ import jakarta.persistence.Id;
 import lombok.Data;
 
 /**
+ * This class represents player statistics containing user score/wins counter(s).
+ *
  * @author root7325 on 22.06.2025
  */
 @Data

@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
+ * This class represents in-game hero entity.
+ *
  * @author root7325 on 19.06.2025
  */
 @Data
@@ -48,10 +50,20 @@ public class Hero {
         this.charId = charId;
     }
 
+    /**
+     * Constructs a new GlobalId with hero card id
+     *
+     * @return globalid holding cardId
+     */
     public GlobalId getCard() {
         return new GlobalId(23, cardId);
     }
 
+    /**
+     * Constructs a new GlobalId with hero char id
+     *
+     * @return globalid holding charId
+     */
     public GlobalId getChar() {
         return new GlobalId(16, charId);
     }
