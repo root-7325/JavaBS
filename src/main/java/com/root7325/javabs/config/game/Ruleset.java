@@ -7,6 +7,8 @@ import lombok.Setter;
 import lombok.experimental.Delegate;
 
 /**
+ * Configuration class that defines core game rules and settings.
+ *
  * @author root7325 on 25.06.2025
  */
 @Getter
