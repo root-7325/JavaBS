@@ -12,6 +12,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * This class is responsible for handling events of channel.
+ * 
  * @author root7325 on 17.06.2025
  */
 @Slf4j

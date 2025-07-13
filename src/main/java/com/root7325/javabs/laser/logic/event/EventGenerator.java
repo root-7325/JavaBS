@@ -16,6 +16,9 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * This class manages generation of game events and mode rotations by delegating
+ * to appropriate strategy implementations based on event slot types.
+ *
  * @author root7325 on 02.07.2025
  */
 @Slf4j
@@ -23,6 +26,14 @@ import java.util.concurrent.TimeUnit;
 public class EventGenerator {
     private final Set<IEventGenerationStrategy> strategies;
 
+    /**
+     * Determines next game mode in rotation sequence for given event slot type.
+     *
+     * @param type event slot type to determine strategy
+     * @param currentMode current game mode to rotate from
+     * @return next game mode in rotation sequence
+     * @throws IllegalArgumentException if no strategy supports given event slot type
+     */
     public GameMode generateNextMode(EventSlotType type, GameMode currentMode) {
         return strategies.stream()
                 .filter(s -> s.supports(type))
@@ -31,6 +42,15 @@ public class EventGenerator {
                 .nextMode(currentMode);
     }
 
+    /**
+     * Generates a new event.
+     *
+     * @param type event slot type for event generation
+     * @param requiredMode specific game mode required for event
+     * @param pairMapId map ID for pairing BattleRoyale modes
+     * @return generated event instance
+     * @throws IllegalArgumentException if no strategy supports the given event slot type
+     */
     public Event generateNextEvent(EventSlotType type, GameMode requiredMode, int pairMapId) {
         return strategies.stream()
             .filter(s -> s.supports(type))
@@ -46,6 +66,7 @@ public class EventGenerator {
     public Event generateNextEvent(EventSlotType type, GameMode requiredMode) {
         return generateNextEvent(type, requiredMode, -1);
     }
+
     public Event generateNextEvent(EventSlotType type, int pairMapId) {
         return generateNextEvent(type, null, pairMapId);
     }

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
+ * Enumeration of command types in SC (Laser) protocol.
  * @author root7325 on 28.06.2025
  */
 @Getter
@@ -22,6 +23,13 @@ public enum CommandType {
 
     private final int i;
 
+    /**
+     * Converts command type ID to corresponding CommandType enum.
+     *
+     * @param type command type ID
+     * @return corresponding CommandType enum value
+     * @throws IllegalArgumentException if no CommandType exists with the given ID
+     */
     public static CommandType from(int type) {
         for (CommandType commandType : values()) {
             if (commandType.i == type) {

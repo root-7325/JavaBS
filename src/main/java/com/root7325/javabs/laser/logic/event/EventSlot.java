@@ -7,6 +7,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 /**
+ * This class represents in-game event slot.
+ * It holds specific slot type enum,
+ * current mode and event data.
+ *
  * @author root7325 on 30.06.2025
  */
 @Getter

@@ -10,6 +10,8 @@ import java.time.Duration;
 import java.time.Instant;
 
 /**
+ * This class represents an event data.
+ *
  * @author root7325 on 26.06.2025
  */
 @RequiredArgsConstructor

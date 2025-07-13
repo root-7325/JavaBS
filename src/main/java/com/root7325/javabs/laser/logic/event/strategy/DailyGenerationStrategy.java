@@ -10,9 +10,12 @@ import lombok.AllArgsConstructor;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
+ * Implementation of event generation strategy for {@link EventSlotType#Daily} slot type.
+ *
  * @author root7325 on 02.07.2025
  */
 @AllArgsConstructor(onConstructor = @__({@Inject}))

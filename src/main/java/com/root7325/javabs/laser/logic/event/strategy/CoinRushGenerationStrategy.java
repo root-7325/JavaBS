@@ -11,6 +11,8 @@ import lombok.AllArgsConstructor;
 import java.util.Optional;
 
 /**
+ * Implementation of event generation strategy for {@link EventSlotType#CoinRush} slot type.
+ *
  * @author root7325 on 02.07.2025
  */
 @AllArgsConstructor(onConstructor = @__({@Inject}))
