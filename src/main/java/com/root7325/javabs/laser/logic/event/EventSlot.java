@@ -21,4 +21,8 @@ public class EventSlot {
     private GameMode currentMode;
 
     private Event event;
+
+    public boolean isEventExpired() {
+        return event.getRemainingTime() <= 2;
+    }
 }

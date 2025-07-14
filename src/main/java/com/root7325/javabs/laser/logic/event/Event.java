@@ -13,15 +13,21 @@ import java.time.Instant;
  *
  * @author root7325 on 26.06.2025
  */
-@RequiredArgsConstructor
 public class Event {
     private final int index;
     @Getter
     private final int mapId;
     @Setter
+    @Getter
     private Instant instant;
 
-    private int getRemainingTime() {
+    public Event(int index, int mapId, Instant instant) {
+        this.index = index;
+        this.mapId = mapId;
+        this.instant = instant;
+    }
+
+    public int getRemainingTime() {
         Duration duration = Duration.between(Instant.now(), instant);
 
         if (duration.isNegative()) return -1;

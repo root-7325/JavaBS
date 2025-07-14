@@ -8,12 +8,14 @@ import com.root7325.javabs.laser.enums.GameMode;
 import com.root7325.javabs.laser.logic.event.Event;
 import lombok.AllArgsConstructor;
 
+import java.time.Instant;
 import java.util.Optional;
 
 /**
  * Implementation of event generation strategy for {@link EventSlotType#BattleRoyaleTeam} slot type.
  *
  * @author root7325 on 02.07.2025
+ * @see IEventGenerationStrategy
  */
 @AllArgsConstructor(onConstructor = @__({@Inject}))
 public class BattleRoyaleTeamGenerationStrategy implements IEventGenerationStrategy {
@@ -34,11 +36,13 @@ public class BattleRoyaleTeamGenerationStrategy implements IEventGenerationStrat
         if (pairMapId == -1) {
             throw new IllegalArgumentException("pairMapId should be specified for BattleRoyaleTeam event");
         }
-        Optional<Location> locationOptional = locationManager.getTeamPairById(pairMapId);
-        if (locationOptional.isPresent()) {
-            Location location = locationOptional.get();
-            return new Event(type.getIndex(), location.getId());
-        }
-        throw new IllegalStateException("No location found for BattleRoyaleTeam");
+
+        return locationManager.getTeamPairById(pairMapId)
+                .map(location -> new Event(
+                        type.getIndex(),
+                        location.getId(),
+                        Instant.now().plus(GameMode.BattleRoyaleTeam.getDuration())
+                ))
+                .orElseThrow(() -> new IllegalStateException("No location found for BattleRoyaleTeam"));
     }
 }

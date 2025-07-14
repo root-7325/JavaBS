@@ -12,6 +12,7 @@ import com.root7325.javabs.laser.protocol.packets.server.OwnHomeDataMessage;
 import com.root7325.javabs.utils.LaserByteBuf;
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.util.Collections;
 import java.util.List;
@@ -20,16 +21,16 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * This class manages lifecycle and scheduling of events.
+ *
  * @author root7325 on 26.06.2025
  */
 @Slf4j
-@Singleton
 public class EventManager {
-    public static final long SLOT_LIFETIME = TimeUnit.MINUTES.toSeconds(30);
+    public static final Duration SLOT_POLL_INTERVAL = Duration.ofSeconds(30); // 1/2 minute
     private final ILaserServerMessageFactory laserServerMessageFactory;
     private final IPacketDispatcher packetDispatcher;
     private final EventGenerator eventGenerator;
-    private final ScheduledExecutorService scheduler;
     private final List<EventSlot> eventSlots;
 
     @Inject
@@ -38,90 +39,118 @@ public class EventManager {
         this.laserServerMessageFactory = laserServerMessageFactory;
         this.packetDispatcher = packetDispatcher;
         this.eventGenerator = eventGenerator;
-        this.scheduler = scheduler;
         this.eventSlots = new CopyOnWriteArrayList<>();
         initializeSlots();
-        scheduler.scheduleAtFixedRate(this::updateEvents, SLOT_LIFETIME, SLOT_LIFETIME, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(this::updateEvents, SLOT_POLL_INTERVAL.getSeconds(), SLOT_POLL_INTERVAL.getSeconds(), TimeUnit.SECONDS);
     }
 
+    /** Initializes all event slots. */
     private void initializeSlots() {
+        log.debug("Initializing event slots...");
         eventSlots.clear();
-        Instant initialInstant = Instant.now().plusSeconds(SLOT_LIFETIME);
 
-        EventSlot coinRushSlot = createSlot(EventSlotType.CoinRush, initialInstant);
-        EventSlot battleRoyaleSlot = createSlot(EventSlotType.BattleRoyale, initialInstant);
-        EventSlot dailySlot = createDailySlot(initialInstant);
-        EventSlot battleRoyaleTeamSlot = createBattleRoyaleTeamSlot(initialInstant, battleRoyaleSlot.getEvent().getMapId());
+        try {
+            EventSlot coinRushSlot = createSlot(EventSlotType.CoinRush);
+            EventSlot battleRoyaleSlot = createSlot(EventSlotType.BattleRoyale);
+            EventSlot dailySlot = createSlot(EventSlotType.Daily);
+            EventSlot battleRoyaleTeamSlot = createBattleRoyaleTeamSlot(battleRoyaleSlot.getEvent().getInstant(), battleRoyaleSlot.getEvent().getMapId());
+            EventSlot specialSlot = createSlot(EventSlotType.Special);
 
-        eventSlots.addAll(List.of(coinRushSlot, battleRoyaleSlot, dailySlot, battleRoyaleTeamSlot));
+            eventSlots.addAll(List.of(coinRushSlot, battleRoyaleSlot, dailySlot, battleRoyaleTeamSlot, specialSlot));
+            log.debug("Total of {} event slots initialized successfully!", eventSlots.size());
+        } catch (Exception ex) {
+            log.error("Failed to initialize slots.", ex);
+        }
     }
 
-    private EventSlot createSlot(EventSlotType type, Instant instant) {
+    /**
+     * Creates a new event slot.
+     *
+     * @param type type of this event slot
+     * @return created event slot with appropriate game mode, event data and instant
+     */
+    private EventSlot createSlot(EventSlotType type) {
         EventSlot slot = new EventSlot(type);
-        Event event = eventGenerator.generateNextEvent(type);
-        event.setInstant(instant);
+        GameMode mode = eventGenerator.generateNextMode(type, null);
+        Event event = eventGenerator.generateNextEvent(type, mode);
+        event.setInstant(Instant.now().plus(mode.getDuration()));
         slot.setEvent(event);
         return slot;
     }
 
-    private EventSlot createDailySlot(Instant instant) {
-        EventSlot slot = new EventSlot(EventSlotType.Daily);
-        slot.setCurrentMode(GameMode.LaserBall);
-        Event event = eventGenerator.generateNextEvent(EventSlotType.Daily, GameMode.LaserBall);
-        event.setInstant(instant);
-        slot.setEvent(event);
-        return slot;
-    }
-
-    private EventSlot createBattleRoyaleTeamSlot(Instant instant, int mapId) {
+    /**
+     * Creates a new event slot for BattleRoyaleTeam
+     *
+     * @param battleRoyaleInstant instant from slot with BattleRoyale type
+     * @param mapId id of map from slot with BattleRoyale type
+     * @return created BattleRoyaleTeam event slot
+     */
+    private EventSlot createBattleRoyaleTeamSlot(Instant battleRoyaleInstant, int mapId) {
         EventSlot slot = new EventSlot(EventSlotType.BattleRoyaleTeam);
         Event event = eventGenerator.generateNextEvent(EventSlotType.BattleRoyaleTeam, mapId);
-        event.setInstant(instant);
+        event.setInstant(battleRoyaleInstant);
         slot.setEvent(event);
         return slot;
     }
 
+    /** Updates all events. */
     private void updateEvents() {
-        Instant updateInstant = Instant.now().plusSeconds(SLOT_LIFETIME);
         int battleRoyaleMapId = -1;
+        Instant battleRoyaleInstant = Instant.MIN;
+        boolean broadcastRequired = false;
 
-        for (EventSlot eventSlot : eventSlots) {
-            switch (eventSlot.getSlotType()) {
-                case CoinRush, BattleRoyale -> {
-                    Event event = eventGenerator.generateNextEvent(eventSlot.getSlotType());
-                    eventSlot.setEvent(event);
-
-                    if (eventSlot.getSlotType() == EventSlotType.BattleRoyale) {
-                        battleRoyaleMapId = event.getMapId();
-                    }
+        try {
+            for (EventSlot eventSlot : eventSlots) {
+                if (!eventSlot.isEventExpired()) {
+                    continue;
                 }
-                case BattleRoyaleTeam -> {
-                    if (battleRoyaleMapId == -1) {
-                        log.warn("BattleRoyale mapId is not assigned.");
-                        continue;
+                broadcastRequired = true;
+
+                switch (eventSlot.getSlotType()) {
+                    case CoinRush, BattleRoyale -> {
+                        Event event = eventGenerator.generateNextEvent(eventSlot.getSlotType());
+                        eventSlot.setEvent(event);
+
+                        if (eventSlot.getSlotType() == EventSlotType.BattleRoyale) {
+                            battleRoyaleMapId = event.getMapId();
+                            battleRoyaleInstant = event.getInstant();
+                        }
                     }
+                    case BattleRoyaleTeam -> {
+                        if (battleRoyaleMapId == -1) {
+                            log.warn("BattleRoyale mapId is not assigned.");
+                            continue;
+                        }
+                        if (battleRoyaleInstant == Instant.MIN) {
+                            log.warn("BattleRoyale instant is not assigned.");
+                            continue;
+                        }
 
-                    Event event = eventGenerator.generateNextEvent(EventSlotType.BattleRoyaleTeam, battleRoyaleMapId);
-                    eventSlot.setEvent(event);
-                }
-                case Daily -> {
-                    GameMode mode = eventGenerator.generateNextMode(EventSlotType.Daily, eventSlot.getCurrentMode());
-                    eventSlot.setCurrentMode(mode);
+                        Event event = eventGenerator.generateNextEvent(EventSlotType.BattleRoyaleTeam, battleRoyaleMapId);
+                        event.setInstant(battleRoyaleInstant);
+                        eventSlot.setEvent(event);
+                    }
+                    case Daily, Special -> {
+                        GameMode mode = eventGenerator.generateNextMode(eventSlot.getSlotType(), eventSlot.getCurrentMode());
+                        eventSlot.setCurrentMode(mode);
 
-                    Event event = eventGenerator.generateNextEvent(EventSlotType.Daily, mode);
-                    eventSlot.setEvent(event);
+                        Event event = eventGenerator.generateNextEvent(eventSlot.getSlotType(), mode);
+                        eventSlot.setEvent(event);
+                    }
                 }
             }
-
-            eventSlot.getEvent().setInstant(updateInstant);
+        } catch (Exception ex) {
+            log.error("Failed to update events.", ex);
         }
 
-        packetDispatcher.broadcast(player -> {
-            OwnHomeDataMessage ownHomeDataMessage = laserServerMessageFactory.createOwnHomeDataMessage(player);
+        if (broadcastRequired) {
+            packetDispatcher.broadcast(player -> {
+                OwnHomeDataMessage ownHomeDataMessage = laserServerMessageFactory.createOwnHomeDataMessage(player);
 
-            LogicDayChangedCommand logicDayChangedCommand = new LogicDayChangedCommand(ownHomeDataMessage);
-            return new AvailableServerCommandMessage(logicDayChangedCommand);
-        });
+                LogicDayChangedCommand logicDayChangedCommand = new LogicDayChangedCommand(ownHomeDataMessage);
+                return new AvailableServerCommandMessage(logicDayChangedCommand);
+            });
+        }
     }
 
     public void encode(LaserByteBuf out) {
