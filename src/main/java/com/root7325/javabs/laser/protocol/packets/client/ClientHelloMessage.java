@@ -2,7 +2,6 @@ package com.root7325.javabs.laser.protocol.packets.client;
 
 import com.root7325.javabs.laser.protocol.packets.PiranhaMessage;
 import com.root7325.javabs.utils.LaserByteBuf;
-import io.netty.buffer.ByteBuf;
 
 /**
  * @author root7325 on 17.06.2025

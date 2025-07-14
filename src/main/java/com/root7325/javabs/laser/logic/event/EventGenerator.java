@@ -1,19 +1,13 @@
 package com.root7325.javabs.laser.logic.event;
 
 import com.google.inject.Inject;
-import com.root7325.javabs.assets.manager.location.LocationManager;
-import com.root7325.javabs.assets.model.Location;
 import com.root7325.javabs.laser.enums.EventSlotType;
 import com.root7325.javabs.laser.enums.GameMode;
 import com.root7325.javabs.laser.logic.event.strategy.IEventGenerationStrategy;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 /**
  * This class manages generation of game events and mode rotations by delegating

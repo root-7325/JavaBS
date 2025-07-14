@@ -2,7 +2,6 @@ package com.root7325.javabs.entity.player;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.Id;
 import lombok.Data;
 
 /**

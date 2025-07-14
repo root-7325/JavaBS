@@ -2,7 +2,6 @@ package com.root7325.javabs.laser.protocol.commands;
 
 import com.google.inject.Inject;
 import com.root7325.javabs.module.ProtocolModule;
-import com.root7325.javabs.utils.LaserByteBuf;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

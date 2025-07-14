@@ -2,7 +2,6 @@ package com.root7325.javabs.laser.handlers;
 
 import com.root7325.javabs.laser.core.LaserSession;
 import com.root7325.javabs.laser.protocol.packets.PiranhaMessage;
-import com.root7325.javabs.laser.protocol.packets.client.GetPlayerProfileMessage;
 import com.root7325.javabs.laser.protocol.packets.server.PlayerProfileMessage;
 
 /**

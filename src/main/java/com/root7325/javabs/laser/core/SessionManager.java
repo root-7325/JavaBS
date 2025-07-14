@@ -3,8 +3,6 @@ package com.root7325.javabs.laser.core;
 import com.google.inject.Inject;
 import com.root7325.javabs.dao.PlayerDAO;
 import com.root7325.javabs.laser.protocol.packets.server.LobbyInfoMessage;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;

@@ -1,7 +1,6 @@
 package com.root7325.javabs.laser.protocol.packets;
 
 import com.root7325.javabs.utils.LaserByteBuf;
-import io.netty.buffer.ByteBuf;
 import lombok.Getter;
 import lombok.Setter;
 

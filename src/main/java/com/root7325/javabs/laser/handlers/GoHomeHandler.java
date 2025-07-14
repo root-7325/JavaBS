@@ -1,13 +1,9 @@
 package com.root7325.javabs.laser.handlers;
 
 import com.google.inject.Inject;
-import com.root7325.javabs.config.game.Ruleset;
 import com.root7325.javabs.laser.core.LaserSession;
-import com.root7325.javabs.laser.logic.event.EventManager;
 import com.root7325.javabs.laser.protocol.packets.ILaserServerMessageFactory;
 import com.root7325.javabs.laser.protocol.packets.PiranhaMessage;
-import com.root7325.javabs.laser.protocol.packets.server.KeepAliveServerMessage;
-import com.root7325.javabs.laser.protocol.packets.server.OwnHomeDataMessage;
 import lombok.AllArgsConstructor;
 
 /**

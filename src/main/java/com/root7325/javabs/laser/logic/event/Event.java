@@ -1,7 +1,6 @@
 package com.root7325.javabs.laser.logic.event;
 
 import com.root7325.javabs.utils.LaserByteBuf;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;

@@ -2,8 +2,6 @@ package com.root7325.javabs.laser.logic.event;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import com.root7325.javabs.assets.manager.location.LocationManager;
-import com.root7325.javabs.assets.model.Location;
 import com.root7325.javabs.laser.core.IPacketDispatcher;
 import com.root7325.javabs.laser.enums.EventSlotType;
 import com.root7325.javabs.laser.enums.GameMode;
@@ -14,10 +12,7 @@ import com.root7325.javabs.laser.protocol.packets.server.OwnHomeDataMessage;
 import com.root7325.javabs.utils.LaserByteBuf;
 import lombok.extern.slf4j.Slf4j;
 
-import java.lang.reflect.Array;
-import java.time.Duration;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;

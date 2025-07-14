@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import com.root7325.javabs.laser.core.ISessionManager;
 import com.root7325.javabs.laser.core.LaserSession;
 import com.root7325.javabs.laser.core.MessageRouter;
-import com.root7325.javabs.laser.core.SessionManager;
 import com.root7325.javabs.laser.protocol.packets.PiranhaMessage;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;

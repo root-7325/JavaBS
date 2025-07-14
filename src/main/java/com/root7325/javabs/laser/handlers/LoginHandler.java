@@ -1,7 +1,6 @@
 package com.root7325.javabs.laser.handlers;
 
 import com.google.inject.Inject;
-import com.root7325.javabs.config.game.Ruleset;
 import com.root7325.javabs.dao.PlayerDAO;
 import com.root7325.javabs.entity.player.Player;
 import com.root7325.javabs.laser.core.ISessionManager;

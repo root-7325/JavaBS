@@ -1,12 +1,8 @@
 package com.root7325.javabs.module;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.Provides;
 import com.google.inject.multibindings.Multibinder;
 import com.root7325.javabs.laser.logic.event.strategy.*;
-
-import java.util.List;
-import java.util.Set;
 
 /**
  * This module binds event generation strategies.

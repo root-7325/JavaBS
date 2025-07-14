@@ -2,8 +2,6 @@ package com.root7325.javabs.assets.model;
 
 import com.root7325.javabs.assets.loader.CsvAssetLoader;
 
-import java.util.List;
-
 /**
  * Base interface for all game assets.
  *

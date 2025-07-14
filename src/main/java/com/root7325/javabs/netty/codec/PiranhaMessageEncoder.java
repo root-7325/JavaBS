@@ -7,9 +7,6 @@ import com.root7325.javabs.utils.LaserByteBuf;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
-import io.netty.handler.codec.MessageToMessageEncoder;
-
-import java.util.List;
 
 /**
  * Netty encoder for SC protocol messages.
