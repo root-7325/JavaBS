@@ -13,6 +13,8 @@ import com.root7325.javabs.laser.protocol.packets.ILaserServerMessageFactory;
 import com.root7325.javabs.laser.protocol.packets.server.OwnHomeDataMessage;
 
 /**
+ * This module binds protocol message/command factories.
+ *
  * @author root7325 on 02.07.2025
  */
 public class ProtocolModule extends AbstractModule {
@@ -24,6 +26,7 @@ public class ProtocolModule extends AbstractModule {
         configureClientCommands();
     }
 
+    /** Binds all client-side messages. */
     private void configureClientMessages() {
         MapBinder<MessageType, PiranhaMessage> mapBinder = MapBinder.newMapBinder(
                 binder(),
@@ -42,6 +45,11 @@ public class ProtocolModule extends AbstractModule {
         mapBinder.addBinding(MessageType.ChangeAvatarName).to(ChangeAvatarNameMessage.class);
     }
 
+    /**
+     * Binds all server-side <strong>complex</strong> messages.
+     *
+     * @see ILaserServerMessageFactory
+     */
     private void configureServerMessages() {
         install(new FactoryModuleBuilder()
                 .implement(OwnHomeDataMessage.class, OwnHomeDataMessage.class)
@@ -49,6 +57,7 @@ public class ProtocolModule extends AbstractModule {
         );
     }
 
+    /** Binds all client-side commands. */
     private void configureClientCommands() {
         MapBinder<CommandType, LogicCommand> mapBinder = MapBinder.newMapBinder(
                 binder(), CommandType.class, LogicCommand.class

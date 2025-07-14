@@ -10,6 +10,8 @@ import io.netty.channel.ChannelInitializer;
 import lombok.AllArgsConstructor;
 
 /**
+ * This class is responsible for initializing channels.
+ * 
  * @author root7325 on 17.06.2025
  */
 @AllArgsConstructor(onConstructor = @__({@Inject}))

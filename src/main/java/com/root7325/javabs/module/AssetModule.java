@@ -13,6 +13,8 @@ import com.root7325.javabs.assets.model.Location;
 import com.root7325.javabs.assets.model.PlayerThumbnail;
 
 /**
+ * This module configures bindings for assets managers & providers for assets loaders.
+ *
  * @author root7325 on 28.06.2025
  */
 public class AssetModule extends AbstractModule {

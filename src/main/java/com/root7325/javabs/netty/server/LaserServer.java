@@ -7,6 +7,9 @@ import io.netty.channel.ChannelFuture;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * This class is responsible for binding server to specific host and port, 
+ * which is specified in server configuration.
+ * 
  * @author root7325 on 17.06.2025
  */
 @Slf4j
@@ -23,6 +26,7 @@ public class LaserServer {
         this.serverBootstrap = laserServerBootstrap.create();
     }
 
+    /** Binds server to specific host and port. */
     public void bind() {
         log.debug("Binding to {}:{}...", host, port);
         ChannelFuture channelFuture = serverBootstrap.bind(host, port);

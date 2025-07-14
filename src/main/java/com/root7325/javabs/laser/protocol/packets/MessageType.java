@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
+ * Enumeration of message types in SC (Laser) protocol.
+ *
  * @author root7325 on 17.06.2025
  */
 @Getter
@@ -36,6 +38,13 @@ public enum MessageType {
 
     private final int i;
 
+    /**
+     * Converts message type ID to corresponding MessageType enum.
+     *
+     * @param type message type ID
+     * @return corresponding MessageType enum value
+     * @throws IllegalArgumentException if no MessageType exists with the given ID
+     */
     public static MessageType from(int type) {
         for (MessageType messageType : values()) {
             if (messageType.i == type) {

@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import java.nio.charset.StandardCharsets;
 
 /**
+ * This class implements specific methods for reading and writing data
+ * in the format of SC protocol.
+ * 
  * @author root7325 on 17.06.2025
  */
 @Getter

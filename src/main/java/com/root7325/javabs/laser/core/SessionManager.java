@@ -3,8 +3,6 @@ package com.root7325.javabs.laser.core;
 import com.google.inject.Inject;
 import com.root7325.javabs.dao.PlayerDAO;
 import com.root7325.javabs.laser.protocol.packets.server.LobbyInfoMessage;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
@@ -13,7 +11,10 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * Implementation of an ISessionManager interface.
+ *
  * @author root7325 on 17.06.2025
+ * @see ISessionManager
  */
 @Slf4j
 public class SessionManager implements ISessionManager {

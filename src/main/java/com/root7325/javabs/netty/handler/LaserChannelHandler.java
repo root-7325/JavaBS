@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import com.root7325.javabs.laser.core.ISessionManager;
 import com.root7325.javabs.laser.core.LaserSession;
 import com.root7325.javabs.laser.core.MessageRouter;
-import com.root7325.javabs.laser.core.SessionManager;
 import com.root7325.javabs.laser.protocol.packets.PiranhaMessage;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -12,6 +11,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * This class is responsible for handling events of channel.
+ * 
  * @author root7325 on 17.06.2025
  */
 @Slf4j

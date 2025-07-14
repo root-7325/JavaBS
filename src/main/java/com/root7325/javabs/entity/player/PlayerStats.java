@@ -2,10 +2,11 @@ package com.root7325.javabs.entity.player;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.Id;
 import lombok.Data;
 
 /**
+ * This class represents player statistics containing user score/wins counter(s).
+ *
  * @author root7325 on 22.06.2025
  */
 @Data

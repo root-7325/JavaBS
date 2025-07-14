@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
+ * Configuration class for in-game shop system and item pricing.
+ *
  * @author root7325 on 26.06.2025
  */
 @Getter

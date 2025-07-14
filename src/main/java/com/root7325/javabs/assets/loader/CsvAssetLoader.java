@@ -1,14 +1,12 @@
 package com.root7325.javabs.assets.loader;
 
 import com.opencsv.bean.CsvToBeanBuilder;
-import com.opencsv.bean.HeaderColumnNameTranslateMappingStrategy;
 import com.root7325.javabs.assets.loader.filter.CombinedFilter;
 import com.root7325.javabs.assets.loader.filter.DataTypeFilter;
 import com.root7325.javabs.assets.loader.filter.EmptyLineFilter;
 import com.root7325.javabs.assets.model.Asset;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ArrayUtils;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -16,7 +14,10 @@ import java.io.Reader;
 import java.util.List;
 
 /**
+ * Implementation of an AssetLoader interface.
+ *
  * @author root7325 on 28.06.2025
+ * @see AssetLoader
  */
 @Slf4j
 @AllArgsConstructor

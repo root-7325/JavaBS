@@ -3,6 +3,8 @@ package com.root7325.javabs.assets.loader.filter;
 import com.opencsv.bean.CsvToBeanFilter;
 
 /**
+ * This filter combines multiple CSV filters into a single composite filter.
+ *
  * @author root7325 on 28.06.2025
  */
 public class CombinedFilter implements CsvToBeanFilter {

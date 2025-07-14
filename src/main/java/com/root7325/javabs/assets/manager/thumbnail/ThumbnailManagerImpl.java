@@ -10,7 +10,10 @@ import com.root7325.javabs.config.server.ServerConfig;
 import java.util.Optional;
 
 /**
+ * Implementation of a ThumbnailManager interface.
+ *
  * @author root7325 on 28.06.2025
+ * @see ThumbnailManager
  */
 public class ThumbnailManagerImpl extends AssetManagerImpl<PlayerThumbnail> implements ThumbnailManager {
     @Inject

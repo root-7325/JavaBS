@@ -5,6 +5,8 @@ import com.opencsv.bean.CsvToBeanFilter;
 import java.util.Arrays;
 
 /**
+ * This filter excludes CSV header lines that declare data types for fields.
+ *
  * @author root7325 on 27.12.2025
  */
 public class DataTypeFilter implements CsvToBeanFilter {

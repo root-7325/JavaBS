@@ -7,6 +7,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 /**
+ * This class represents in-game event slot.
+ * It holds specific slot type enum,
+ * current mode and event data.
+ *
  * @author root7325 on 30.06.2025
  */
 @Getter
@@ -17,4 +21,8 @@ public class EventSlot {
     private GameMode currentMode;
 
     private Event event;
+
+    public boolean isEventExpired() {
+        return event.getRemainingTime() <= 2;
+    }
 }

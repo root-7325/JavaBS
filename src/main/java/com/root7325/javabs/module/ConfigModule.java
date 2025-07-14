@@ -3,7 +3,6 @@ package com.root7325.javabs.module;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provider;
 import com.google.inject.Provides;
-import com.google.inject.Singleton;
 import com.root7325.javabs.config.game.Ruleset;
 import com.root7325.javabs.config.server.Config;
 import com.root7325.javabs.config.server.CryptoConfig;
@@ -16,6 +15,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
+ * This module provides configuration & ruleset bindings.
+ *
  * @author root7325 on 21.06.2025
  */
 public class ConfigModule extends AbstractModule {

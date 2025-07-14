@@ -1,14 +1,13 @@
 package com.root7325.javabs.module;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.Provides;
 import com.google.inject.multibindings.Multibinder;
+import com.root7325.javabs.laser.logic.event.EventManager;
 import com.root7325.javabs.laser.logic.event.strategy.*;
 
-import java.util.List;
-import java.util.Set;
-
 /**
+ * This module binds event generation strategies.
+ *
  * @author root7325 on 02.07.2025
  */
 public class EventGenerationModule extends AbstractModule {
@@ -21,5 +20,8 @@ public class EventGenerationModule extends AbstractModule {
         strategyBinder.addBinding().to(BattleRoyaleTeamGenerationStrategy.class);
         strategyBinder.addBinding().to(CoinRushGenerationStrategy.class);
         strategyBinder.addBinding().to(DailyGenerationStrategy.class);
+        strategyBinder.addBinding().to(SpecialGenerationStrategy.class);
+
+        bind(EventManager.class).asEagerSingleton();
     }
 }

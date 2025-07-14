@@ -18,6 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 /**
+ * Netty decoder for SC protocol messages.
+ *
  * @author root7325 on 17.06.2025
  */
 @Slf4j
@@ -47,10 +49,22 @@ public class PiranhaMessageDecoder extends ByteToMessageDecoder {
         processPacket(messageHeader.getType(), decrypted, list);
     }
 
+    /**
+     * Validates that the ByteBuf contains sufficient bytes to read a complete message header.
+     *
+     * @param byteBuf buffer to check
+     * @return {@code true} if readable bytes >= {@link PiranhaMessage#HEADER_SIZE}, {@code false} otherwise
+     */
     private boolean hasEnoughBytesForHeader(ByteBuf byteBuf) {
         return byteBuf.readableBytes() >= PiranhaMessage.HEADER_SIZE;
     }
 
+    /**
+     * Extracts and parses message header from the ByteBuf.
+     * 
+     * @param in ByteBuf containing the message data
+     * @return parsed MessageHeader object with type, length, and version
+     */
     private MessageHeader readMessageHeader(ByteBuf in) {
         short type = in.readShort();
         int length = in.readMedium();
@@ -59,14 +73,35 @@ public class PiranhaMessageDecoder extends ByteToMessageDecoder {
         return new MessageHeader(type, length, version);
     }
 
+    /**
+     * Validates that ByteBuf contains enough bytes to read message body.
+     * 
+     * @param byteBuf buffer to check
+     * @param length expected message body length
+     * @return {@code true} if readable bytes >= length, {@code false} otherwise
+     */
     private boolean hasEnoughBytesForBody(ByteBuf byteBuf, int length) {
         return byteBuf.readableBytes() >= length;
     }
 
+    /**
+     * Reads message body.
+     * 
+     * @param in ByteBuf containing message data
+     * @param messageHeader parsed message header with body length
+     * @return ByteBuf containing message body data
+     */
     private ByteBuf readBody(ByteBuf in, MessageHeader messageHeader) {
         return in.readBytes(messageHeader.getLength());
     }
 
+    /**
+     * Processes the decrypted message and creates appropriate message object.
+     * 
+     * @param type message type
+     * @param in decrypted message body
+     * @param list output list
+     */
     private void processPacket(int type, ByteBuf in, List<Object> list) {
         MessageType messageType = getPacketType(type);
         if (messageType == null) {

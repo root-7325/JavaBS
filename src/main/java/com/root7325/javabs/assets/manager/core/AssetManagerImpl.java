@@ -12,7 +12,10 @@ import java.nio.file.Paths;
 import java.util.List;
 
 /**
+ * Implementation of an AssetManager interface.
+ *
  * @author root7325 on 28.06.2025
+ * @see AssetManager
  */
 @Slf4j
 public class AssetManagerImpl<T extends Asset> implements AssetManager<T> {

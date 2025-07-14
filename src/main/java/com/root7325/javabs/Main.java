@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Main {
+    /** Entry point of this server. */
     public static void main(String[] args) {
         log.info("JavaBS is starting.");
 

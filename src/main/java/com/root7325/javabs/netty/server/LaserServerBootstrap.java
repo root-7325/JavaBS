@@ -9,6 +9,8 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import lombok.Builder;
 
 /**
+ * This class is responsible for creating Netty's server bootstrap.
+ * 
  * @author root7325 on 17.06.2025
  */
 @Builder
@@ -23,6 +25,7 @@ public class LaserServerBootstrap {
         this.injector = injector;
     }
 
+    /** Creates Netty's ServerBootstrap instance. */
     public ServerBootstrap create() {
         NioEventLoopGroup bossGroup = new NioEventLoopGroup();
         NioEventLoopGroup workerGroup = new NioEventLoopGroup();

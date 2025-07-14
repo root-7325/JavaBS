@@ -1,7 +1,6 @@
 package com.root7325.javabs.laser.logic.event;
 
 import com.root7325.javabs.utils.LaserByteBuf;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -10,17 +9,25 @@ import java.time.Duration;
 import java.time.Instant;
 
 /**
+ * This class represents an event data.
+ *
  * @author root7325 on 26.06.2025
  */
-@RequiredArgsConstructor
 public class Event {
     private final int index;
     @Getter
     private final int mapId;
     @Setter
+    @Getter
     private Instant instant;
 
-    private int getRemainingTime() {
+    public Event(int index, int mapId, Instant instant) {
+        this.index = index;
+        this.mapId = mapId;
+        this.instant = instant;
+    }
+
+    public int getRemainingTime() {
         Duration duration = Duration.between(Instant.now(), instant);
 
         if (duration.isNegative()) return -1;

@@ -7,6 +7,8 @@ import com.root7325.javabs.netty.server.LaserServer;
 import com.root7325.javabs.netty.server.LaserServerBootstrap;
 
 /**
+ * This module configures Netty server, channel handlers, and networking dependencies.
+ *
  * @author root7325 on 22.06.2025
  */
 public class NettyModule extends AbstractModule {

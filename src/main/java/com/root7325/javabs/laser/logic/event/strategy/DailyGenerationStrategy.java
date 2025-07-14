@@ -8,12 +8,16 @@ import com.root7325.javabs.laser.enums.GameMode;
 import com.root7325.javabs.laser.logic.event.Event;
 import lombok.AllArgsConstructor;
 
-import java.util.Arrays;
+import java.time.Instant;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
+ * Implementation of event generation strategy for {@link EventSlotType#Daily} slot type.
+ *
  * @author root7325 on 02.07.2025
+ * @see IEventGenerationStrategy
  */
 @AllArgsConstructor(onConstructor = @__({@Inject}))
 public class DailyGenerationStrategy implements IEventGenerationStrategy {
@@ -27,6 +31,10 @@ public class DailyGenerationStrategy implements IEventGenerationStrategy {
 
     @Override
     public GameMode nextMode(GameMode currentMode) {
+        if (currentMode == null) {
+            return modes.get(0);
+        }
+
         int idx = modes.indexOf(currentMode);
         int nextIdx = (idx + 1) % modes.size();
         return modes.get(nextIdx);
@@ -34,14 +42,10 @@ public class DailyGenerationStrategy implements IEventGenerationStrategy {
 
     @Override
     public Event generate(EventSlotType type, GameMode requiredMode, int pairMapId) {
-        if (requiredMode == null) {
-            throw new IllegalArgumentException("requiredMode must be specified for Daily event");
-        }
-        Optional<Location> locationOptional = locationManager.getRandomByGameMode(requiredMode);
-        if (locationOptional.isPresent()) {
-            Location location = locationOptional.get();
-            return new Event(type.getIndex(), location.getId());
-        }
-        throw new IllegalStateException("No location found for Daily event");
+        Objects.requireNonNull(requiredMode, "requiredMode must be specified for Daily event");
+
+        return locationManager.getRandomByGameMode(requiredMode)
+                .map(location -> new Event(type.getIndex(), location.getId(), Instant.now().plus(requiredMode.getDuration())))
+                .orElseThrow(() -> new IllegalStateException("No location found for Daily event"));
     }
 }

@@ -8,6 +8,8 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 /**
+ * This class represents player settings containing user preferences and configuration.
+ * 
  * @author root7325 on 22.06.2025
  */
 @Slf4j
@@ -36,6 +38,7 @@ public class PlayerSettings {
         this.setThumbnail(new GlobalId(28, 0));
     }
 
+    /** Synchronizes database fields. */
     protected void syncFields() {
         setThumbnailId(thumbnail.getInstanceId());
     }

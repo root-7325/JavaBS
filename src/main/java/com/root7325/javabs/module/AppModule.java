@@ -9,6 +9,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 /**
+ * Main application module that installs all other required modules.
+ *
  * @author root7325 on 22.06.2025
  */
 public class AppModule extends AbstractModule {

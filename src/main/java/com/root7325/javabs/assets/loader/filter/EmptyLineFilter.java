@@ -4,6 +4,8 @@ import com.opencsv.bean.CsvToBeanFilter;
 import lombok.AllArgsConstructor;
 
 /**
+ * This filter excludes empty lines.
+ *
  * @author root7325 on 27.12.2025
  */
 @AllArgsConstructor
