@@ -5,6 +5,8 @@ import com.root7325.javabs.laser.crypto.ICrypto;
 import com.root7325.javabs.laser.crypto.PepperCrypto;
 
 /**
+ * This module binds cryptographic implementation.
+ *
  * @author root7325 on 22.06.2025
  */
 public class CryptoModule extends AbstractModule {

@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
+ * This module provides configuration & ruleset bindings.
+ *
  * @author root7325 on 21.06.2025
  */
 public class ConfigModule extends AbstractModule {

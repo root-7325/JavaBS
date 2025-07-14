@@ -9,6 +9,9 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 /**
+ * This module binds DAO to their implementations & provides
+ * SessionFactory.
+ *
  * @author root7325 on 22.06.2025
  */
 public class DatabaseModule extends AbstractModule {

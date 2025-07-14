@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * This module binds event generation strategies.
+ *
  * @author root7325 on 02.07.2025
  */
 public class EventGenerationModule extends AbstractModule {
