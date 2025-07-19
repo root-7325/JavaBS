@@ -35,7 +35,7 @@ public class MessageRouter {
     public void handle(PiranhaMessage piranhaMessage, LaserSession session) {
         IHandler handler = handlers.get(piranhaMessage.getMessageType());
         if (handler != null) {
-            log.debug("Message handled by {}", handler.getClass().getSimpleName());
+            log.trace("Message being handled by {}", handler.getClass().getSimpleName());
 
             executorService.submit(() -> {
                 try {

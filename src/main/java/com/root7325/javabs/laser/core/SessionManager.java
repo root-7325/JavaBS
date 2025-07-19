@@ -49,11 +49,13 @@ public class SessionManager implements ISessionManager {
 
         activeSessions.put(id, session);
         packetDispatcher.broadcastExcept(player -> new LobbyInfoMessage(getSessionsAmount()), session);
+        log.info("{} is now online.", id);
     }
 
     public void removeSession(long id) {
         activeSessions.remove(id);
         packetDispatcher.broadcast(player -> new LobbyInfoMessage(getSessionsAmount()));
+        log.info("{} is no longer online.", id);
     }
 
     public void removeSession(LaserSession session) {

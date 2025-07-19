@@ -34,6 +34,8 @@ public class PiranhaMessageEncoder extends MessageToByteEncoder<PiranhaMessage> 
             byteBuf.writeShort(0);
             byteBuf.writeBytes(encrypted);
             byteBuf.writeBytes(new byte[7]);
+
+            encrypted.release();
         } catch (Exception e) {
             channelHandlerContext.fireExceptionCaught(e);
         }

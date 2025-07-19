@@ -42,7 +42,7 @@ class RulesetProvider implements Provider<Ruleset> {
 
     @Override
     public Ruleset get() {
-        log.debug("Trying to load ruleset.");
+        log.trace("Trying to load ruleset.");
 
         com.typesafe.config.Config defaultConfig = ConfigFactory.load(HOCON_FILE);
         com.typesafe.config.Config externalConfig = ConfigFactory.parseFile(new File(HOCON_FILE));
@@ -60,7 +60,7 @@ class ConfigProvider implements Provider<Config> {
 
     @Override
     public Config get() {
-        log.debug("Trying to load server configuration.");
+        log.trace("Trying to load server configuration.");
 
         com.typesafe.config.Config defaultConfig = ConfigFactory.load(HOCON_FILE);
         com.typesafe.config.Config externalConfig = ConfigFactory.parseFile(new File(HOCON_FILE));

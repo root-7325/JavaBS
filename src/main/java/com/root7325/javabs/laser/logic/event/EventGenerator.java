@@ -29,6 +29,7 @@ public class EventGenerator {
      * @throws IllegalArgumentException if no strategy supports given event slot type
      */
     public GameMode generateNextMode(EventSlotType type, GameMode currentMode) {
+        log.debug("Generating next mode for {}", type);
         return strategies.stream()
                 .filter(s -> s.supports(type))
                 .findAny()
@@ -46,6 +47,7 @@ public class EventGenerator {
      * @throws IllegalArgumentException if no strategy supports the given event slot type
      */
     public Event generateNextEvent(EventSlotType type, GameMode requiredMode, int pairMapId) {
+        log.debug("Generating next event for {}", type);
         return strategies.stream()
             .filter(s -> s.supports(type))
             .findAny()

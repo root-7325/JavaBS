@@ -28,7 +28,7 @@ public class LaserServer {
 
     /** Binds server to specific host and port. */
     public void bind() {
-        log.debug("Binding to {}:{}...", host, port);
+        log.info("Binding to {}:{}...", host, port);
         ChannelFuture channelFuture = serverBootstrap.bind(host, port);
         channelFuture.addListener(future -> {
             if (future.isSuccess()) {

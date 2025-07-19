@@ -32,10 +32,10 @@ public class LogicCommandManager {
 
         LogicCommand logicCommand = commandMap.get(commandType);
         if (logicCommand != null) {
-            log.debug("Created {} command!", commandType);
+            log.trace("Created {} command!", commandType);
             return logicCommand;
         } else {
-            log.debug("Unknown command {}!", type);
+            log.trace("Unknown command {}!", type);
             return null;
         }
     }

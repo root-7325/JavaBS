@@ -59,7 +59,6 @@ public class PlayerDAOImpl implements PlayerDAO {
                 session.persist(player);
                 transaction.commit();
 
-                log.debug("Created new player with id {}", player.getId());
                 return player;
             } catch (Exception ex) {
                 log.error("Failed to create new player.", ex);
@@ -76,7 +75,7 @@ public class PlayerDAOImpl implements PlayerDAO {
                 player.syncFields();
                 Player merged = session.merge(player);
                 transaction.commit();
-                log.debug("Saved player with id {}", player.getId());
+                log.trace("Saved player with id {}", player.getId());
                 return merged;
             } catch (Exception ex) {
                 log.error("Failed to save player.", ex);

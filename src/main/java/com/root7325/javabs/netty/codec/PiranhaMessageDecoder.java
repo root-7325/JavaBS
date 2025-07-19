@@ -46,7 +46,7 @@ public class PiranhaMessageDecoder extends ByteToMessageDecoder {
 
         ByteBuf in = readBody(byteBuf, messageHeader);
         ByteBuf decrypted = crypto.decrypt(channelHandlerContext.alloc(), messageHeader.getType(), in);
-        processPacket(messageHeader.getType(), decrypted, list);
+        processPacket(channelHandlerContext, messageHeader.getType(), decrypted, list);
     }
 
     /**
@@ -102,7 +102,7 @@ public class PiranhaMessageDecoder extends ByteToMessageDecoder {
      * @param in decrypted message body
      * @param list output list
      */
-    private void processPacket(int type, ByteBuf in, List<Object> list) {
+    private void processPacket(ChannelHandlerContext channelHandlerContext, int type, ByteBuf in, List<Object> list) {
         MessageType messageType = getPacketType(type);
         if (messageType == null) {
             in.release();
@@ -112,12 +112,16 @@ public class PiranhaMessageDecoder extends ByteToMessageDecoder {
         PiranhaMessage piranhaMessage = messageFactory.create(messageType);
         if (piranhaMessage != null) {
             LaserByteBuf laserByteBuf = new LaserByteBuf(in);
-            piranhaMessage.decode(laserByteBuf);
+            try {
+                piranhaMessage.decode(laserByteBuf);
+            } catch (Exception ex) {
+                channelHandlerContext.fireExceptionCaught(ex);
+            }
 
             list.add(piranhaMessage);
-            log.debug("Decoded {} message!", messageType);
+            log.trace("Decoded {} message!", messageType);
         } else {
-            log.debug("Unknown message {}!", type);
+            log.trace("Unknown message {}!", type);
         }
         in.release();
     }

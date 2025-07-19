@@ -7,12 +7,15 @@ import com.root7325.javabs.laser.core.MessageRouter;
 import com.root7325.javabs.laser.protocol.packets.PiranhaMessage;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.handler.codec.DecoderException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.net.SocketException;
+
 /**
  * This class is responsible for handling events of channel.
- * 
+ *
  * @author root7325 on 17.06.2025
  */
 @Slf4j
@@ -44,13 +47,15 @@ public class LaserChannelHandler extends ChannelInboundHandlerAdapter {
         }
 
         if (msg instanceof PiranhaMessage) {
-            log.debug("Handling PiranhaMessage.");
             router.handle((PiranhaMessage) msg, laserSession);
         }
     }
 
     @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        log.error("Exception caught!", cause);
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+        if (!(cause instanceof SocketException)) {
+            log.error("Exception caught!", cause);
+        }
+        ctx.close();
     }
 }

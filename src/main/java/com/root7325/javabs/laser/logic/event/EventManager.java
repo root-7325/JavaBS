@@ -35,29 +35,31 @@ public class EventManager {
 
     @Inject
     public EventManager(ILaserServerMessageFactory laserServerMessageFactory, IPacketDispatcher packetDispatcher,
-                        EventGenerator eventGenerator, ScheduledExecutorService scheduler) {
+            EventGenerator eventGenerator, ScheduledExecutorService scheduler) {
         this.laserServerMessageFactory = laserServerMessageFactory;
         this.packetDispatcher = packetDispatcher;
         this.eventGenerator = eventGenerator;
         this.eventSlots = new CopyOnWriteArrayList<>();
         initializeSlots();
-        scheduler.scheduleAtFixedRate(this::updateEvents, SLOT_POLL_INTERVAL.getSeconds(), SLOT_POLL_INTERVAL.getSeconds(), TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(this::updateEvents, SLOT_POLL_INTERVAL.getSeconds(),
+                SLOT_POLL_INTERVAL.getSeconds(), TimeUnit.SECONDS);
     }
 
     /** Initializes all event slots. */
     private void initializeSlots() {
-        log.debug("Initializing event slots...");
+        log.info("Initializing event slots...");
         eventSlots.clear();
 
         try {
             EventSlot coinRushSlot = createSlot(EventSlotType.CoinRush);
             EventSlot battleRoyaleSlot = createSlot(EventSlotType.BattleRoyale);
             EventSlot dailySlot = createSlot(EventSlotType.Daily);
-            EventSlot battleRoyaleTeamSlot = createBattleRoyaleTeamSlot(battleRoyaleSlot.getEvent().getInstant(), battleRoyaleSlot.getEvent().getMapId());
+            EventSlot battleRoyaleTeamSlot = createBattleRoyaleTeamSlot(battleRoyaleSlot.getEvent().getInstant(),
+                    battleRoyaleSlot.getEvent().getMapId());
             EventSlot specialSlot = createSlot(EventSlotType.Special);
 
             eventSlots.addAll(List.of(coinRushSlot, battleRoyaleSlot, dailySlot, battleRoyaleTeamSlot, specialSlot));
-            log.debug("Total of {} event slots initialized successfully!", eventSlots.size());
+            log.info("Total of {} event slots initialized successfully!", eventSlots.size());
         } catch (Exception ex) {
             log.error("Failed to initialize slots.", ex);
         }
@@ -82,7 +84,7 @@ public class EventManager {
      * Creates a new event slot for BattleRoyaleTeam
      *
      * @param battleRoyaleInstant instant from slot with BattleRoyale type
-     * @param mapId id of map from slot with BattleRoyale type
+     * @param mapId               id of map from slot with BattleRoyale type
      * @return created BattleRoyaleTeam event slot
      */
     private EventSlot createBattleRoyaleTeamSlot(Instant battleRoyaleInstant, int mapId) {
@@ -126,12 +128,14 @@ public class EventManager {
                             continue;
                         }
 
-                        Event event = eventGenerator.generateNextEvent(EventSlotType.BattleRoyaleTeam, battleRoyaleMapId);
+                        Event event = eventGenerator.generateNextEvent(EventSlotType.BattleRoyaleTeam,
+                                battleRoyaleMapId);
                         event.setInstant(battleRoyaleInstant);
                         eventSlot.setEvent(event);
                     }
                     case Daily, Special -> {
-                        GameMode mode = eventGenerator.generateNextMode(eventSlot.getSlotType(), eventSlot.getCurrentMode());
+                        GameMode mode = eventGenerator.generateNextMode(eventSlot.getSlotType(),
+                                eventSlot.getCurrentMode());
                         eventSlot.setCurrentMode(mode);
 
                         Event event = eventGenerator.generateNextEvent(eventSlot.getSlotType(), mode);
@@ -144,6 +148,7 @@ public class EventManager {
         }
 
         if (broadcastRequired) {
+            log.info("Broadcasting updated events to all players.");
             packetDispatcher.broadcast(player -> {
                 OwnHomeDataMessage ownHomeDataMessage = laserServerMessageFactory.createOwnHomeDataMessage(player);
 

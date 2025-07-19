@@ -40,7 +40,7 @@ public class LaserSession {
     public void write(PiranhaMessage... messages) {
         for (PiranhaMessage packet : messages) {
             channel.write(packet);
-            log.debug("Wrote {} message!", packet.getMessageType());
+            log.trace("Wrote {} message!", packet.getMessageType());
         }
     }
 
