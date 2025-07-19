@@ -12,7 +12,6 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ServerConfig {
     private String host;
     private int port;

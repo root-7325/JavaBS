@@ -35,12 +35,12 @@ This project is a kind of **time machine into 2022 for me**, recreating good old
 1. Setup MySQL Server
     - Use template located in `src/main/resources/hibernate.cfg.template.xml`
 2. Fill out your config
-    - Use template located in: `src/main/resources/config.yaml.template`
+    - Use template located in: `src/main/resources/application.conf.template`
 3. Fill out your ruleset
-    - Use template located in: `src/main/resources/ruleset.yaml.template`
+    - Use template located in: `src/main/resources/ruleset.conf.template`
 4. Build and run the server
 
-> You can place your `.yaml` config files next to your `.jar` file or keep them inside in resources directory.
+> You can place your `.conf` files (which use HOCON format) next to your `.jar` file or keep them inside in resources directory.
 
 ## 📱 Connecting to server
 1. Patch client manually using `frida/script.js` (**compatible with Frida 17 and below**).
