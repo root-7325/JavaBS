@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 /**
  * Configuration class for in-game shop system and item pricing.
  *
@@ -12,7 +14,6 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ShopSettings {
     private int brawlBoxTokenCost;
     private int brawlBoxShopCost;
@@ -21,8 +22,8 @@ public class ShopSettings {
     private int bigBoxTokenCost;
     private int tokenDoublerCost;
     private int tokenDoublerAmount;
-    private int[] eventTicketsCost;
-    private int[] eventTicketsValue;
-    private int[] coinPacksCost;
-    private int[] coinPacksValue;
+    private List<Integer> eventTicketsCost;
+    private List<Integer> eventTicketsValue;
+    private List<Integer> coinPacksCost;
+    private List<Integer> coinPacksValue;
 }

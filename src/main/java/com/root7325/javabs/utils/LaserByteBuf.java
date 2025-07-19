@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 /**
  * This class implements specific methods for reading and writing data
@@ -131,6 +132,10 @@ public class LaserByteBuf {
         writeVInt(arr.length);
         for (int i : arr)
             writeVInt(i);
+    }
+
+    public void writeArrayVInt(List<Integer> list) {
+        writeArrayVInt(list.stream().mapToInt(Integer::intValue).toArray());
     }
 
     public void writeLong(long l) {

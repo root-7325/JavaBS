@@ -18,7 +18,7 @@
         <guice.version>7.0.0</guice.version>
         <mysql.version>8.0.33</mysql.version>
         <hibernate.version>6.6.6.Final</hibernate.version>
-        <snakeyaml.version>2.3</snakeyaml.version>
+        <typesafe.version>1.4.3</typesafe.version>
         <opencsv.version>5.9</opencsv.version>
         <slf4j.version>2.0.16</slf4j.version>
         <logback.version>1.5.16</logback.version>
@@ -57,9 +57,9 @@
             <version>${hibernate.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.yaml</groupId>
-            <artifactId>snakeyaml</artifactId>
-            <version>${snakeyaml.version}</version>
+            <groupId>com.typesafe</groupId>
+            <artifactId>config</artifactId>
+            <version>${typesafe.version}</version>
         </dependency>
         <dependency>
             <groupId>com.opencsv</groupId>

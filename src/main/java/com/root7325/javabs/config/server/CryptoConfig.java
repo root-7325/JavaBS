@@ -12,7 +12,6 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CryptoConfig {
     private String serverKey;
     private String clientSecretKey;

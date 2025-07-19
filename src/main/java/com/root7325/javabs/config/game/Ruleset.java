@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 /**
  * Configuration class that defines core game rules and settings.
  *
@@ -12,14 +14,13 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Ruleset {
     private ShopSettings shopSettings;
     private int tokensCap;
     private int tokensRechargeAmount;
     private int tokensRechargePeriod;
     private int boxTokensCap;
-    private int[] brawlerUpgradeCost;
+    private List<Integer> brawlerUpgradeCost;
     private int minimumTrophiesForReset;
     private int defaultTutorialStep;
 }

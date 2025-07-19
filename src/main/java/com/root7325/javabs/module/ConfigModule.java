@@ -7,12 +7,11 @@ import com.root7325.javabs.config.game.Ruleset;
 import com.root7325.javabs.config.server.Config;
 import com.root7325.javabs.config.server.CryptoConfig;
 import com.root7325.javabs.config.server.ServerConfig;
+import com.typesafe.config.ConfigBeanFactory;
+import com.typesafe.config.ConfigFactory;
 import lombok.extern.slf4j.Slf4j;
-import org.yaml.snakeyaml.Yaml;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.File;
 
 /**
  * This module provides configuration & ruleset bindings.
@@ -39,66 +38,36 @@ public class ConfigModule extends AbstractModule {
 
 @Slf4j
 class RulesetProvider implements Provider<Ruleset> {
-    private static final String YAML_FILE = "ruleset.yaml";
+    private static final String HOCON_FILE = "ruleset.conf";
 
     @Override
     public Ruleset get() {
-        Yaml yaml = new Yaml();
+        log.debug("Trying to load ruleset.");
 
-        try {
-            log.debug("Trying to load external ruleset file: {}", YAML_FILE);
-            return loadExternal(yaml);
-        } catch (IOException ex) {
-            log.debug("Falling back to internal ruleset resource: {}", YAML_FILE);
-            return loadInternal(yaml);
-        }
-    }
+        com.typesafe.config.Config defaultConfig = ConfigFactory.load(HOCON_FILE);
+        com.typesafe.config.Config externalConfig = ConfigFactory.parseFile(new File(HOCON_FILE));
 
-    private Ruleset loadExternal(Yaml yaml) throws IOException {
-        try (InputStream external = new FileInputStream(YAML_FILE)) {
-            return yaml.loadAs(external, Ruleset.class);
-        }
-    }
-
-    private Ruleset loadInternal(Yaml yaml) {
-        try (InputStream inputStream = Config.class.getClassLoader()
-                .getResourceAsStream(YAML_FILE)) {
-            return yaml.loadAs(inputStream, Ruleset.class);
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+        return ConfigBeanFactory.create(
+                externalConfig.withFallback(defaultConfig).resolve(),
+                Ruleset.class
+        );
     }
 }
 
 @Slf4j
 class ConfigProvider implements Provider<Config> {
-    private static final String YAML_FILE = "config.yaml";
+    private static final String HOCON_FILE = "application.conf";
 
     @Override
     public Config get() {
-        Yaml yaml = new Yaml();
+        log.debug("Trying to load server configuration.");
 
-        try {
-            log.debug("Trying to load external config file: {}", YAML_FILE);
-            return loadExternal(yaml);
-        } catch (IOException ex) {
-            log.debug("Falling back to internal config resource: {}", YAML_FILE);
-            return loadInternal(yaml);
-        }
-    }
+        com.typesafe.config.Config defaultConfig = ConfigFactory.load(HOCON_FILE);
+        com.typesafe.config.Config externalConfig = ConfigFactory.parseFile(new File(HOCON_FILE));
 
-    private Config loadExternal(Yaml yaml) throws IOException {
-        try (InputStream external = new FileInputStream(YAML_FILE)) {
-            return yaml.loadAs(external, Config.class);
-        }
-    }
-
-    private Config loadInternal(Yaml yaml) {
-        try (InputStream inputStream = Config.class.getClassLoader()
-                .getResourceAsStream(YAML_FILE)) {
-            return yaml.loadAs(inputStream, Config.class);
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
+        return ConfigBeanFactory.create(
+                externalConfig.withFallback(defaultConfig).resolve(),
+                Config.class
+        );
     }
 }
